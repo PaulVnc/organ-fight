@@ -1,0 +1,7 @@
+# Ignore directory used by Visual Studio for project generation
+build
+out
+.vs
+# Ignore directories used by CLion for project generation
+.idea
+cmake-build-debug
