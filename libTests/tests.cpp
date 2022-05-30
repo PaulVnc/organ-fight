@@ -152,7 +152,7 @@ int main()
 	//from_json(partition, test_partition); 
 
 
-	std::ifstream i("partition_test.json");
+	std::ifstream i("resources/partition_test.json");
 	nlohmann::json partition;
 	i >> partition;
 
@@ -161,6 +161,4 @@ int main()
 	std::cout << test_json << std::endl;
 	std::string test = "je teste que j'ai bien le label a 'test' : " + partition["label"].get<std::string>();
 	std::cout << test << std::endl;
-	std::ofstream o("partition_test.json");
-	o << std::setw(4) << partition << std::endl;
 }

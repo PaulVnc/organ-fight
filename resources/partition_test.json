@@ -1,7 +1,7 @@
 {
   "label": "test",
   "chiffrage": 4,
-  "tempo": 120,
+  "tempo": 160,
   "mesures": [
     {
       "id": 1,
@@ -20,7 +20,7 @@
       "id": 2,
       "notes": {
         "beat": 1,
-        "tune": "A"
+        "tune": "C"
       }
     }
   ]
