@@ -7,9 +7,22 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 #include "nlohmann/json.hpp"
 #include <string>
+#include <fstream>
 
 
 //FICHIER BAC À SABLE POUR TESTER LES LIBRAIRIES
+
+struct partition {
+	std::string label;
+	int tempo;
+	int chiffrage;
+};
+
+void from_json(const nlohmann::json& j, struct partition& p) {
+	j.at("label").get_to(p.label);
+	j.at("tempo").get_to(p.tempo);
+	j.at("chiffrage").get_to(p.chiffrage);
+}
 
 int main()
 {
@@ -97,48 +110,57 @@ int main()
 		window.display();
 	}*/
 
-	nlohmann::json note1;
+	/*nlohmann::json note1;
 	nlohmann::json note2;
 	nlohmann::json note3;
 
-	note1 = {
-		{"tune", 1},
-		{"beat", 2},
-	};
+	note1["tune"] = "A";
+	note1["beat"] = 2;
 
-	note2 = {
-		{"tune", 2},
-		{"beat", 3},
-	};
+	note2["tune"] = "B";
+	note2["beat"] = 3;
 
-	note3 = {
-	{"tune", 1},
-	{"beat", 1},
-	};
+
+	note3["tune"] = "A";
+	note3["beat"] = 1;
+
 
 	nlohmann::json mesure1;
 	nlohmann::json mesure2;
 
-	mesure1 = {
-		{"id", 1},
-		{"notes", note1, note2},
-	};
+	mesure1["id"] = 1;
+	mesure1["notes"] = {note1, note2};
 
-	mesure2 = {
-		{"id", 2},
-		{"notes", note3},
-	};
+	mesure2["id"] = 2;
+	mesure2["notes"] = { note3 };
+
 
 	nlohmann::json partition;
 
-	partition = {
+	/*partition = {
 	  {"label", "test"},
 	  {"tempo", 120},
 	  {"chiffrage", 4},
 	  {"mesures", mesure1, mesure2}
 	};
+	partition["label"] = "test";
+	partition["tempo"] = 120;
+	partition["chiffrage"] = 4;
+	partition["mesures"] = { mesure1, mesure2 };*/
 
-	std::string test_json = partition.dump(4);
+	//struct partition test_partition;
+	//from_json(partition, test_partition); 
+
+
+	std::ifstream i("partition_test.json");
+	nlohmann::json partition;
+	i >> partition;
+
+
+	std::string test_json = partition.dump(3);
 	std::cout << test_json << std::endl;
-	//std::cout << "je teste que j'ai bien le label à 'test'" << partition.at("label") << std::endl;
+	std::string test = "je teste que j'ai bien le label a 'test' : " + partition["label"].get<std::string>();
+	std::cout << test << std::endl;
+	std::ofstream o("partition_test.json");
+	o << std::setw(4) << partition << std::endl;
 }

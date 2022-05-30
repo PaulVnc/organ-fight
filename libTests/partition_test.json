@@ -1,0 +1,27 @@
+{
+  "label": "test",
+  "chiffrage": 4,
+  "tempo": 120,
+  "mesures": [
+    {
+      "id": 1,
+      "notes": [
+        {
+          "beat": 2,
+          "tune": "A"
+        },
+        {
+          "beat": 3,
+          "tune": "B"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "notes": {
+        "beat": 1,
+        "tune": "A"
+      }
+    }
+  ]
+}
