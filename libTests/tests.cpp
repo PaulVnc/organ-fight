@@ -5,13 +5,15 @@
 #include <iostream>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include "nlohmann/json.hpp"
+#include <string>
 
 
 //FICHIER BAC À SABLE POUR TESTER LES LIBRAIRIES
 
 int main()
 {
-	b2Vec2 gravity(0.0f, -1.0f);
+	/*b2Vec2 gravity(0.0f, -1.0f);
 	b2World world(gravity);
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.0f, -400.0f);
@@ -93,5 +95,50 @@ int main()
 		window.clear();
 		window.draw(box);
 		window.display();
-	}
+	}*/
+
+	nlohmann::json note1;
+	nlohmann::json note2;
+	nlohmann::json note3;
+
+	note1 = {
+		{"tune", 1},
+		{"beat", 2},
+	};
+
+	note2 = {
+		{"tune", 2},
+		{"beat", 3},
+	};
+
+	note3 = {
+	{"tune", 1},
+	{"beat", 1},
+	};
+
+	nlohmann::json mesure1;
+	nlohmann::json mesure2;
+
+	mesure1 = {
+		{"id", 1},
+		{"notes", note1, note2},
+	};
+
+	mesure2 = {
+		{"id", 2},
+		{"notes", note3},
+	};
+
+	nlohmann::json partition;
+
+	partition = {
+	  {"label", "test"},
+	  {"tempo", 120},
+	  {"chiffrage", 4},
+	  {"mesures", mesure1, mesure2}
+	};
+
+	std::string test_json = partition.dump(4);
+	std::cout << test_json << std::endl;
+	//std::cout << "je teste que j'ai bien le label à 'test'" << partition.at("label") << std::endl;
 }

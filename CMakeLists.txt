@@ -21,10 +21,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(box2d)
 
-FetchContent_Declare(json
+FetchContent_Declare(
+    json
     GIT_REPOSITORY https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
     GIT_TAG v3.10.5
 )
+FetchContent_MakeAvailable(json)
 
 
 
