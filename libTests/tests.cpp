@@ -8,25 +8,47 @@
 #include "nlohmann/json.hpp"
 #include <string>
 #include <fstream>
+#include <fontsub.h>
 
+int const height = 800;
+int const width = 600;
 
 //FICHIER BAC À SABLE POUR TESTER LES LIBRAIRIES
 
-struct partition {
-	std::string label;
-	int tempo;
-	int chiffrage;
-};
-
-void from_json(const nlohmann::json& j, struct partition& p) {
-	j.at("label").get_to(p.label);
-	j.at("tempo").get_to(p.tempo);
-	j.at("chiffrage").get_to(p.chiffrage);
-}
-
 int main()
 {
-	/*b2Vec2 gravity(0.0f, -1.0f);
+
+	sf::Clock timer;
+	sf::RenderWindow window(sf::VideoMode(height, width), "timer");
+
+	sf::RectangleShape test(sf::Vector2f(100, 100));
+	test.setPosition(100, 100);
+
+	while (window.isOpen()) {
+		
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
+		window.clear();
+		if (timer.getElapsedTime().asSeconds() > 2) {
+			window.draw(test);
+		}
+		std::cout << std::to_string(timer.getElapsedTime().asSeconds()) << std::endl;
+
+		
+		
+		window.display();
+	}
+
+	return 0;
+}
+
+/*b2Vec2 gravity(0.0f, -1.0f);
 	b2World world(gravity);
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.0f, -400.0f);
@@ -66,7 +88,7 @@ int main()
 	sound.setBuffer(buffer);
 	sound.setVolume(20);
 	sound.setPitch(0.5);
-	
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -89,7 +111,7 @@ int main()
 					sound.play();
 				}
 			}
-			
+
 		}
 		sf::Event anykey;
 		window.pollEvent(anykey);
@@ -152,7 +174,7 @@ int main()
 	//from_json(partition, test_partition); 
 
 
-	std::ifstream i("resources/partition_test.json");
+	/*std::ifstream i("resources/partition_test.json");
 	nlohmann::json partition;
 	i >> partition;
 
@@ -160,5 +182,4 @@ int main()
 	std::string test_json = partition.dump(3);
 	std::cout << test_json << std::endl;
 	std::string test = "je teste que j'ai bien le label a 'test' : " + partition["label"].get<std::string>();
-	std::cout << test << std::endl;
-}
+	std::cout << test << std::endl;*/
