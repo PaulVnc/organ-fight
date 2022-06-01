@@ -1,4 +1,5 @@
 #include "myMain.h"
+#include "note.h"
 #include "box2d/box2d.h"
 #include <stdio.h>
 #include <iostream>
@@ -20,8 +21,9 @@ int myMain()
 
 	std::string test_json = partition.dump(3);
 	std::cout << test_json << std::endl;
-	std::string test = "je teste que j'ai bien le label a 'test' : " + partition["label"].get<std::string>();
-	std::cout << test << std::endl;
+	
+	auto note_test = std::make_unique<Note>("D", 2.0, 1, 4.0, 100.0);
+	std::cout << "La note est: " << note_test->get_tune() << " et est jouée au temps " << std::to_string(note_test->get_time()) << std::endl;
 
     return 0;
 }
