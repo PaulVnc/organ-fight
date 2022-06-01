@@ -118,3 +118,8 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/resources
                            ${RESOURCES_UNITTESTS}
                            ${CMAKE_CURRENT_BINARY_DIR}/resources)
 add_dependencies(unitTests copy-resources-unitTest)
+
+if(WIN32)
+   file(GLOB_RECURSE DYNAMIC_LIBS CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/lib_openal32/${ARCH}/*.dll)
+   file(COPY ${DYNAMIC_LIBS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+endif()
