@@ -1,5 +1,5 @@
 
-add_executable(tests tests.cpp)
+add_executable(tests tests.cpp "boss.cpp" "boss.h" "note.h" "note.cpp")
 
 target_link_libraries(tests PUBLIC src box2d sfml-graphics sfml-audio)
 
