@@ -4,16 +4,17 @@
 class Queue
 {
 public:
-    static void init()
-    {
-        head_ = 0;
-        tail_ = 0;
-    }
+    void init();
+    void add_to_queue(Note* note);
+    void update();
+    int get_head();
+    int get_tail();
+    int get_max_pending();
 
 private:
     static const int MAX_PENDING = 16;
-    static int head_;
-    static int tail_;
+    int head_;
+    int tail_;
 
-    static Note pending_[MAX_PENDING];
+    Note* pending_[MAX_PENDING];
 };
