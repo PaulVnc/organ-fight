@@ -1,5 +1,4 @@
 #include "myMain.h"
-<<<<<<< HEAD
 #include "note.h"
 #include "queue.h"
 #include "box2d/box2d.h"
@@ -16,13 +15,10 @@ using namespace nlohmann;
 int const height = 800;
 int const width = 600;
 
-=======
->>>>>>> paul
 
 int myMain()
 {
 	  // Inserer ici le code a appeler par myMain()
-<<<<<<< HEAD
 	
 
 	std::ifstream i("resources/partition_test.json");
@@ -39,8 +35,6 @@ int myMain()
 	
 
 
-=======
->>>>>>> paul
 
     return 0;
 }

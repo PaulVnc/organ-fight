@@ -5,22 +5,11 @@
 #include <iostream>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
-<<<<<<< HEAD
-#include "nlohmann/json.hpp"
-#include <string>
-#include <fstream>
-#include <fontsub.h>
-
-int const height = 800;
-int const width = 600;
-
-=======
 #include "boss.h"
 
 #define RATIO 30.0f
 #define SCREEN_W 800
 #define SCREEN_H 600
->>>>>>> paul
 //FICHIER BAC À SABLE POUR TESTER LES LIBRAIRIES
 
 
@@ -28,42 +17,7 @@ int const width = 600;
 
 int main()
 {
-<<<<<<< HEAD
-
-	sf::Clock timer;
-	sf::RenderWindow window(sf::VideoMode(height, width), "timer");
-
-	sf::RectangleShape test(sf::Vector2f(100, 100));
-	test.setPosition(100, 100);
-
-	while (window.isOpen()) {
-		
-
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-		}
-		window.clear();
-		if (timer.getElapsedTime().asSeconds() > 2) {
-			window.draw(test);
-		}
-		std::cout << std::to_string(timer.getElapsedTime().asSeconds()) << std::endl;
-
-		
-		
-		window.display();
-	}
-
-	return 0;
-}
-
-/*b2Vec2 gravity(0.0f, -1.0f);
-=======
 	b2Vec2 gravity(0.0f, 0.0f);
->>>>>>> paul
 	b2World world(gravity);
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(4.0f, -4.0f);
@@ -119,8 +73,6 @@ int main()
 	sound.setVolume(20);
 	sound.setPitch(0.5);
 
-<<<<<<< HEAD
-=======
 	sf::RectangleShape calib(sf::Vector2f(10,10));
 	calib.setPosition(sf::Vector2f(200.0f,200.0f));
 	sf::RectangleShape calib2(sf::Vector2f(10,10));
@@ -128,7 +80,6 @@ int main()
 	calib.setFillColor(sf::Color(255, 0, 0, 255));
 
 	
->>>>>>> paul
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -207,62 +158,6 @@ int main()
 		window.draw(calib2);
 		window.draw(calib);
 		window.display();
-<<<<<<< HEAD
-	}*/
-
-	/*nlohmann::json note1;
-	nlohmann::json note2;
-	nlohmann::json note3;
-
-	note1["tune"] = "A";
-	note1["beat"] = 2;
-
-	note2["tune"] = "B";
-	note2["beat"] = 3;
-
-
-	note3["tune"] = "A";
-	note3["beat"] = 1;
-
-
-	nlohmann::json mesure1;
-	nlohmann::json mesure2;
-
-	mesure1["id"] = 1;
-	mesure1["notes"] = {note1, note2};
-
-	mesure2["id"] = 2;
-	mesure2["notes"] = { note3 };
-
-
-	nlohmann::json partition;
-
-	/*partition = {
-	  {"label", "test"},
-	  {"tempo", 120},
-	  {"chiffrage", 4},
-	  {"mesures", mesure1, mesure2}
-	};
-	partition["label"] = "test";
-	partition["tempo"] = 120;
-	partition["chiffrage"] = 4;
-	partition["mesures"] = { mesure1, mesure2 };*/
-
-	//struct partition test_partition;
-	//from_json(partition, test_partition); 
-
-
-	/*std::ifstream i("resources/partition_test.json");
-	nlohmann::json partition;
-	i >> partition;
-
-
-	std::string test_json = partition.dump(3);
-	std::cout << test_json << std::endl;
-	std::string test = "je teste que j'ai bien le label a 'test' : " + partition["label"].get<std::string>();
-	std::cout << test << std::endl;*/
-=======
 	}
 	
 }
->>>>>>> paul
