@@ -9,7 +9,7 @@ void Queue::init() {
 	tail_ = 0;
 }
 
-void Queue::add_to_queue(Note* note) {
+void Queue::add_to_queue(Notes* note) {
 	assert((tail_ + 1) % MAX_PENDING != head_);
 
 	pending_[tail_] = note;

@@ -1,20 +1,20 @@
 #include "note.h"
 
-Note::Note(float time, std::string tune) :
+Notes::Notes(float time, std::string tune) :
 	time(time),
 	tune(tune) {}
 
-Note::Note(std::string tune, float beat, int id_mesure, float chiffrage, float tempo) :
+Notes::Notes(std::string tune, float beat, int id_mesure, float chiffrage, float tempo) :
 	tune(tune) 
 {
 	time = (chiffrage/tempo)*(60*(id_mesure - 1) + beat);
 }
 
 
-std::string Note::get_tune() {
+std::string Notes::get_tune() {
 	return tune;
 }
 
-float Note::get_time() {
+float Notes::get_time() {
 	return time;
 }

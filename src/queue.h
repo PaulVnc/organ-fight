@@ -6,7 +6,7 @@ class Queue
 {
 public:
     void init();
-    void add_to_queue(Note* note);
+    void add_to_queue(Notes* note);
     void update(sf::Clock timer, sf::RectangleShape to_display[]);
     int get_head();
     int get_tail();
@@ -17,5 +17,5 @@ private:
     int head_;
     int tail_;
 
-    Note* pending_[MAX_PENDING];
+    Notes* pending_[MAX_PENDING];
 };

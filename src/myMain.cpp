@@ -28,8 +28,18 @@ int myMain()
 
 	std::string test_json = partition.dump(3);
 	std::cout << test_json << std::endl;
+	nlohmann::json mesure = partition["mesures"][0];
 	
-	Note note = Note("D", 2.0, 1, 4.0, 100.0);
+	std::string test_mesure = mesure.dump(3);
+	std::cout << mesure << std::endl;
+	
+
+
+
+    return 0;
+}
+
+/*Note note = Note("D", 2.0, 1, 4.0, 100.0);
 	Note* note_test = &note;
 	std::cout << "La note est: " << note_test->get_tune() << " et est jouée au temps " << std::to_string(note_test->get_time()) << std::endl;
 
@@ -44,8 +54,8 @@ int myMain()
 
 
 	sf::RectangleShape to_display[2];
-	
-	
+
+
 	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
 	sf::Clock timer;
 
@@ -68,9 +78,4 @@ int myMain()
 
 
 		window.display();
-	}
-
-
-
-    return 0;
-}
+	}*/
