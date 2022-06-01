@@ -8,13 +8,18 @@
 #include <string>
 #include <fstream>
 #include <memory>
+#include <SFML/Graphics.hpp>
 
 using namespace nlohmann;
+
+int const height = 800;
+int const width = 600;
 
 
 int myMain()
 {
 	  // Inserer ici le code a appeler par myMain()
+	
 
 	std::ifstream i("resources/partition_test.json");
 	nlohmann::json partition;
@@ -28,29 +33,41 @@ int myMain()
 	Note* note_test = &note;
 	std::cout << "La note est: " << note_test->get_tune() << " et est jouée au temps " << std::to_string(note_test->get_time()) << std::endl;
 
+	Note note2 = Note("C", 4.0, 2, 4.0, 100.0);
+	Note* note_test2 = &note2;
+	std::cout << "La note est: " << note_test2->get_tune() << " et est jouée au temps " << std::to_string(note_test2->get_time()) << std::endl;
+
 	Queue queue;
 	queue.init();
-	std::cout << "head = " << queue.get_head() << std::endl;
-	std::cout << "tail = " << queue.get_tail() << std::endl;
-	for (int i = 0; i < queue.get_max_pending() - 4; i++) {
-		queue.add_to_queue(note_test);
-		std::cout << "head = " << queue.get_head() << std::endl;
-		std::cout << "tail = " << queue.get_tail() << std::endl;
-	}
-	for (int i = 0; i < queue.get_max_pending() - 4; i++) {
-		queue.update();
-		std::cout << "head = " << queue.get_head() << std::endl;
-		std::cout << "tail = " << queue.get_tail() << std::endl;
-	}
-	for (int i = 0; i < queue.get_max_pending() - 4; i++) {
-		queue.add_to_queue(note_test);
-		std::cout << "head = " << queue.get_head() << std::endl;
-		std::cout << "tail = " << queue.get_tail() << std::endl;
-	}
-	for (int i = 0; i < queue.get_max_pending() - 4; i++) {
-		queue.update();
-		std::cout << "head = " << queue.get_head() << std::endl;
-		std::cout << "tail = " << queue.get_tail() << std::endl;
+	queue.add_to_queue(note_test);
+	queue.add_to_queue(note_test2);
+
+
+	sf::RectangleShape to_display[2];
+	
+	
+	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
+	sf::Clock timer;
+
+	while (window.isOpen()) {
+
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
+		}
+		window.clear();
+		queue.update(timer, to_display);
+		for (int i = 0; i < 2; i++) {
+			window.draw(to_display[i]);
+		}
+
+
+
+		window.display();
 	}
 
 

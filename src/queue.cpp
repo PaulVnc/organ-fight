@@ -16,12 +16,27 @@ void Queue::add_to_queue(Note* note) {
 	tail_ = (tail_ + 1) % MAX_PENDING;
 }
 
-void Queue::update() {
+void Queue::update(sf::Clock timer, sf::RectangleShape to_display[]) {
 	if (head_ == tail_) return;
 
-	std::cout << "updated" << std::endl;
+	if (timer.getElapsedTime().asSeconds() >= pending_[head_]->get_time()) {
+		sf::RectangleShape shape(sf::Vector2f(timer.getElapsedTime().asSeconds()*100, timer.getElapsedTime().asSeconds() * 100));
+		shape.setPosition(timer.getElapsedTime().asSeconds(), timer.getElapsedTime().asSeconds() * 100);
+		if (timer.getElapsedTime().asSeconds() < 1) {
+			to_display[0] = shape;
+		}
+		else {
+			to_display[1] = shape;
+		}
 
-	head_ = (head_ + 1) % MAX_PENDING;
+		std::cout << "drwed" << std::endl;
+		head_ = (head_ + 1) % MAX_PENDING;
+		return;
+	}
+
+	return;
+
+	
 }
 
 int Queue::get_head() {
