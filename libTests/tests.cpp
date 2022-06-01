@@ -6,6 +6,7 @@
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 #include "boss.h"
+#include "note.h"
 
 #define RATIO 30.0f
 #define SCREEN_W 800
@@ -20,7 +21,7 @@ int main()
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(4.0f, -4.0f);
+	groundBodyDef.position.Set(4.0f, -12.0f);
 	b2Body* groundBody = world.CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundBox;
@@ -30,7 +31,7 @@ int main()
 	float boxW = 0.7f;
 	float boxH = 2.0f;
 	b2BodyDef bodyDef;
-	bodyDef.position.Set(1.0f, 2.0f);
+	bodyDef.position.Set(1.0f, -6.0f);
 	bodyDef.type = b2_dynamicBody;
 	b2Body* body = world.CreateBody(&bodyDef);
 	b2PolygonShape dynamicBox;
@@ -45,14 +46,13 @@ int main()
 	float obstacleW = 1.0f;
 	float obstacleH = 1.0f;
 	b2BodyDef triggerDef;
-	triggerDef.position.Set(4.0,-2.0f);
+	triggerDef.position.Set(4.0,-10.0f);
 	triggerDef.type = b2_staticBody;
 	b2Body* trigger = world.CreateBody(&triggerDef);
 	b2PolygonShape triggerBox;
 	triggerBox.SetAsBox(obstacleW, obstacleH);
 	b2FixtureDef triggerFixtureDef;
 	triggerFixtureDef.shape = &triggerBox;
-	//triggerFixtureDef.isSensor = true;
 	trigger->CreateFixture(&triggerFixtureDef);
 
 	
@@ -79,7 +79,8 @@ int main()
 	calib2.setPosition(sf::Vector2f(195.0f,195.0f));
 	calib.setFillColor(sf::Color(255, 0, 0, 255));
 
-	
+	std::vector<Note> notes;
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -90,25 +91,24 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed) {
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-					//body->ApplyLinearImpulseToCenter(b2Vec2(10,0),true);
 					body->SetLinearVelocity(b2Vec2(1, 0));
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
-					//body->ApplyLinearImpulseToCenter(b2Vec2(-10, 0),true);
 					body->SetLinearVelocity(b2Vec2(-1, 0));
 				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-					//body->ApplyLinearImpulseToCenter(b2Vec2(-10, 0), true);
 					body->SetLinearVelocity(b2Vec2(0, 1));
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-					//body->ApplyLinearImpulseToCenter(b2Vec2(-10, 0), true);
 					body->SetLinearVelocity(b2Vec2(0,-1));
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-					//body->ApplyLinearImpulseToCenter(b2Vec2(0, 20), true);
 					body->SetLinearVelocity(b2Vec2(0, 0));
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {
+					Note note(position.x-2.0f, "C4", 4, &world,RATIO);
+					notes.push_back(note);
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
 					body->SetLinearVelocity(b2Vec2(0, 0));
@@ -118,15 +118,10 @@ int main()
 			}
 
 		}
-		sf::Event anykey;
-		window.pollEvent(anykey);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			//body->ApplyLinearImpulse(b2Vec2(0, 100), body->GetMassData().center, true);
-		}
+
 		// Instruct the world to perform a single step of simulation.
 		// It is generally best to keep the time step and iterations fixed.
 		world.Step(timeStep, velocityIterations, positionIterations);
-		// Now print the position and angle of the body.
 		if (body->GetContactList()) {
 			if(body->GetContactList()->contact->IsTouching()&& body->GetPosition().y > -200.0f){
 				printf("Ayayayay");
@@ -134,27 +129,26 @@ int main()
 		}
 
 
-		/*if (b2TestOverlap(body->GetFixtureList()->GetAABB(0), trigger->GetFixtureList()->GetAABB(0))) {
-			printf("OVERLAPPPP");
-		}*/
-		bossMain();
 
 		position = body->GetPosition();
 		b2Vec2 gpos = groundBody->GetPosition();
 
 		sf::RectangleShape box(sf::Vector2f(boxW*2*RATIO,boxH*2*RATIO));
-		box.setPosition(sf::Vector2f(RATIO*(position.x-boxW),SCREEN_H / 2 + RATIO*(-position.y - boxH)));
+		box.setPosition(sf::Vector2f(RATIO*(position.x-boxW), RATIO*(-position.y - boxH)));
 
 		sf::RectangleShape ground(sf::Vector2f(10.0f * 2.0f * RATIO, 1.0f * 2.0f * RATIO));
-		ground.setPosition(sf::Vector2f(RATIO * (gpos.x - 10.0f),SCREEN_H / 2 + RATIO * (-gpos.y - 1.0f)));
+		ground.setPosition(sf::Vector2f(RATIO * (gpos.x - 10.0f), RATIO * (-gpos.y - 1.0f)));
 
 		sf::RectangleShape obstacle(sf::Vector2f(RATIO * 2*obstacleW, RATIO * 2*obstacleH));
-
-		obstacle.setPosition(sf::Vector2f(RATIO * (trigger->GetPosition().x-obstacleW),SCREEN_H/2 +RATIO * (-trigger->GetPosition().y-obstacleH)));
+		obstacle.setPosition(sf::Vector2f(RATIO * (trigger->GetPosition().x-obstacleW), RATIO * (-trigger->GetPosition().y-obstacleH)));
+		
 		window.clear();
 		window.draw(box);
 		window.draw(obstacle);
 		window.draw(ground);
+		for (Note n : notes) {
+			n.draw(&window,RATIO);
+		}
 		window.draw(calib2);
 		window.draw(calib);
 		window.display();
