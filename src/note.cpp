@@ -11,10 +11,10 @@ Notes::Notes(std::string tune, float beat, int id_mesure, float chiffrage, float
 }
 
 
-std::string Notes::get_tune() {
+std::string Notes::get_tune() const{
 	return tune;
 }
 
-float Notes::get_time() {
+float Notes::get_time() const{
 	return time;
 }

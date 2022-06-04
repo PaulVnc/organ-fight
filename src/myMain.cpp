@@ -1,6 +1,7 @@
 #include "myMain.h"
 #include "note.h"
 #include "queue.h"
+#include "jsonfunction.h"
 #include "box2d/box2d.h"
 #include <stdio.h>
 #include <iostream>
@@ -28,11 +29,19 @@ int myMain()
 
 	std::string test_json = partition.dump(3);
 	std::cout << test_json << std::endl;
-	nlohmann::json mesure = partition["mesures"][0];
 	
-	std::string test_mesure = mesure.dump(3);
-	std::cout << mesure << std::endl;
-	
+	std::vector<mesure> all_mesures = get_mesures(partition);
+	std::vector<std::vector<Notes>> all_notes;
+	for (const mesure& mes : all_mesures) {
+		
+		all_notes.push_back(get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]));
+
+	}
+	for (const std::vector<Notes>& notes : all_notes) {
+		for (const Notes& one_note : notes) {
+			std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
+		}
+	}
 
 
 

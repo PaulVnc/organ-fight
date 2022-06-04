@@ -137,7 +137,7 @@ int main()
 		/*if (b2TestOverlap(body->GetFixtureList()->GetAABB(0), trigger->GetFixtureList()->GetAABB(0))) {
 			printf("OVERLAPPPP");
 		}*/
-		bossMain();
+		//bossMain();
 
 		position = body->GetPosition();
 		b2Vec2 gpos = groundBody->GetPosition();
