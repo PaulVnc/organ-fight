@@ -10,6 +10,8 @@
 #include <fstream>
 #include <memory>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
 using namespace nlohmann;
 
@@ -31,19 +33,51 @@ int myMain()
 	std::cout << test_json << std::endl;
 	
 	std::vector<mesure> all_mesures = get_mesures(partition);
-	std::vector<std::vector<Notes>> all_notes;
+	std::vector<Notes> all_notes;
 	for (const mesure& mes : all_mesures) {
 		
-		all_notes.push_back(get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]));
+		std::vector<Notes> mesure_notes = get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
+		all_notes.insert(all_notes.end(), mesure_notes.begin(), mesure_notes.end());
 
 	}
-	for (const std::vector<Notes>& notes : all_notes) {
-		for (const Notes& one_note : notes) {
-			std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
+	for (const Notes& one_note : all_notes) {
+		std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
+	}
+
+	sf::SoundBuffer buffer;
+	sf::Sound sound;
+	if (!buffer.loadFromFile("resources/sound.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	sound.setBuffer(buffer);
+	sound.setVolume(20);
+	sound.setPitch(0.5);
+
+	int index = 0;
+	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
+	sf::Clock timer;
+
+	while (window.isOpen()) {
+
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				window.close();
+			}
 		}
+		window.clear();
+		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
+			sound.play();
+			index++;
+		}
+
+
+
+		window.display();
 	}
-
-
 
     return 0;
 }

@@ -7,7 +7,7 @@ Notes::Notes(float time, std::string tune) :
 Notes::Notes(std::string tune, float beat, int id_mesure, float chiffrage, float tempo) :
 	tune(tune) 
 {
-	time = (chiffrage/tempo)*(60*(id_mesure - 1) + beat);
+	time = (60/tempo)*(chiffrage*(id_mesure - 1) + beat);
 }
 
 
