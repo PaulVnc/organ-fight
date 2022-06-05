@@ -45,14 +45,77 @@ int myMain()
 	}
 
 	sf::SoundBuffer buffer;
-	sf::Sound sound;
-	if (!buffer.loadFromFile("resources/sound.wav")) {
+	sf::Sound soundA;
+	if (!buffer.loadFromFile("resources/A.wav")) {
 		printf("ERROR");
 		return -1;
 	}
-	sound.setBuffer(buffer);
-	sound.setVolume(20);
-	sound.setPitch(0.5);
+	soundA.setBuffer(buffer);
+	soundA.setVolume(20);
+
+	sf::SoundBuffer bufferB;
+	sf::Sound soundB;
+	if (!bufferB.loadFromFile("resources/B.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundB.setBuffer(bufferB);
+	soundB.setVolume(20);
+
+	sf::SoundBuffer bufferC;
+	sf::Sound soundC;
+	if (!bufferC.loadFromFile("resources/C.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundC.setBuffer(bufferC);
+	soundC.setVolume(20);
+
+
+	sf::SoundBuffer bufferD;
+	sf::Sound soundD;
+	if (!bufferD.loadFromFile("resources/D.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundD.setBuffer(bufferD);
+	soundD.setVolume(20);
+
+	sf::SoundBuffer bufferE;
+	sf::Sound soundE;
+	if (!bufferE.loadFromFile("resources/E.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundE.setBuffer(bufferE);
+	soundE.setVolume(20);
+
+	sf::SoundBuffer bufferF;
+	sf::Sound soundF;
+	if (!bufferF.loadFromFile("resources/F.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundF.setBuffer(bufferF);
+	soundF.setVolume(20);
+
+	sf::SoundBuffer bufferG;
+	sf::Sound soundG;
+	if (!bufferG.loadFromFile("resources/G.wav")) {
+		printf("ERROR");
+		return -1;
+	}
+	soundG.setBuffer(bufferG);
+	soundG.setVolume(20);
+
+	std::map<std::string, sf::Sound> sounds_map;
+	sounds_map["A"] = soundA;
+	sounds_map["B"] = soundB;
+	sounds_map["C"] = soundC;
+	sounds_map["D"] = soundD;
+	sounds_map["E"] = soundE;
+	sounds_map["F"] = soundF;
+	sounds_map["G"] = soundG;
 
 	int index = 0;
 	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
@@ -70,7 +133,8 @@ int myMain()
 		}
 		window.clear();
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
-			sound.play();
+			std::cout << all_notes[index].get_tune() << std::endl;
+			sounds_map[all_notes[index].get_tune()].play();
 			index++;
 		}
 
