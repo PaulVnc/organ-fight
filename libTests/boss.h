@@ -7,8 +7,8 @@ private:
 	bool reflectMode = false;
 	b2Body body;
 public:
-	void setReflectMode(bool state);
-	void hit(int amount);
+	//void setReflectMode(bool state);
+	//void hit(int amount);
 	void changeDirection();
 	int bossMain();
 };
