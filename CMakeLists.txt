@@ -4,6 +4,10 @@ cmake_policy(VERSION 3.15)
 include(FetchContent)
 project(JIN4 VERSION 1.0.0 LANGUAGES CXX)
 
+set(THREADS_USE_PTHREADS_WIN32 true)
+option(CMAKE_USE_WIN32_THREADS_INIT "using WIN32 threads" ON)
+
+
 if(WIN32)
   # SonarLint support for CMake requires the following flag to be set on.
   #(see https://community.sonarsource.com/t/sonarlint-for-visual-studio-v4-38-support-cmake-projects/50127)
@@ -16,6 +20,15 @@ FetchContent_Declare(
     GIT_TAG origin/main
 )
 FetchContent_MakeAvailable(box2d)
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json
+    GIT_TAG v3.10.5
+)
+FetchContent_MakeAvailable(json)
+
+
 
 if(APPLE)
   find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)

@@ -12,12 +12,12 @@ private:
 	b2Body* noteBody;
 	sf::RectangleShape shape;
 public:
-	explicit Note(float x_pos, std::string note, int wnf, b2World* world, int nuance = 6);
+	explicit Note(float x_pos, std::string note, int wnf, b2World* world,const float RATIO, int nuance = 6);
 	b2Body* getBody();
 	void init(b2World* world);
 	void changeNuance(int newNuance);
 	void decreaseNuance();
 	void changeVelocity(float h_vel, float v_vel);
-	void draw(sf::RenderTarget* window);
+	void draw(sf::RenderTarget* window,const float RATIO);
 	b2Vec2 pos();
 };
