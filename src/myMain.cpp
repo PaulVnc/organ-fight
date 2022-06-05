@@ -24,7 +24,7 @@ int myMain()
 	  // Inserer ici le code a appeler par myMain()
 	
 
-	std::ifstream i("resources/partition_test.json");
+	std::ifstream i("resources/LionKing.json");
 	nlohmann::json partition;
 	i >> partition;
 
@@ -133,7 +133,6 @@ int myMain()
 		}
 		window.clear();
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
-			std::cout << all_notes[index].get_tune() << std::endl;
 			sounds_map[all_notes[index].get_tune()].play();
 			index++;
 		}
