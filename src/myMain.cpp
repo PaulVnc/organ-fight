@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <iostream>
 #include "nlohmann/json.hpp"
+#include "Movingobject.h"
 #include <string>
 #include <fstream>
 #include <memory>
@@ -123,7 +124,6 @@ int myMain()
 	
 	sf::VertexArray lines(sf::Lines, 2);
 
-	// on définit la position des sommets du triangle
 	lines[0].position = sf::Vector2f(0, 200);
 	lines[0].color = sf::Color::Red;
 	lines[1].position = sf::Vector2f(width, 200);
@@ -131,7 +131,6 @@ int myMain()
 
 	sf::VertexArray lines2(sf::Lines, 2);
 
-	// on définit la position des sommets du triangle
 	lines2[0].position = sf::Vector2f(0, 400);
 	lines2[0].color = sf::Color::Red;
 	lines2[1].position = sf::Vector2f(width, 400);
@@ -139,11 +138,18 @@ int myMain()
 
 	sf::VertexArray lines3(sf::Lines, 2);
 
-	// on définit la position des sommets du triangle
 	lines3[0].position = sf::Vector2f(0, 600);
 	lines3[0].color = sf::Color::Red;
 	lines3[1].position = sf::Vector2f(width, 600);
 	lines3[1].color = sf::Color::Red;
+
+
+	b2Vec2 gravity(0.0f, 0.0f);
+	b2World world(gravity);
+	
+	Boss boss(100, 100);
+	boss.setRectangle(100, 100);
+	boss.createBody(world);
 
 
 
@@ -172,6 +178,7 @@ int myMain()
 		window.draw(lines);
 		window.draw(lines2);
 		window.draw(lines3);
+		window.draw(boss.getShape());
 		window.display();
 	}
 
