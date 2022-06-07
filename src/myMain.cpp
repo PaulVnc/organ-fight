@@ -16,7 +16,7 @@
 using namespace nlohmann;
 
 int const height = 800;
-int const width = 600;
+int const width = 1200;
 
 
 int myMain()
@@ -117,8 +117,39 @@ int myMain()
 	sounds_map["F"] = soundF;
 	sounds_map["G"] = soundG;
 
+
+
+
+	
+	sf::VertexArray lines(sf::Lines, 2);
+
+	// on définit la position des sommets du triangle
+	lines[0].position = sf::Vector2f(0, 200);
+	lines[0].color = sf::Color::Red;
+	lines[1].position = sf::Vector2f(width, 200);
+	lines[1].color = sf::Color::Red;
+
+	sf::VertexArray lines2(sf::Lines, 2);
+
+	// on définit la position des sommets du triangle
+	lines2[0].position = sf::Vector2f(0, 400);
+	lines2[0].color = sf::Color::Red;
+	lines2[1].position = sf::Vector2f(width, 400);
+	lines2[1].color = sf::Color::Red;
+
+	sf::VertexArray lines3(sf::Lines, 2);
+
+	// on définit la position des sommets du triangle
+	lines3[0].position = sf::Vector2f(0, 600);
+	lines3[0].color = sf::Color::Red;
+	lines3[1].position = sf::Vector2f(width, 600);
+	lines3[1].color = sf::Color::Red;
+
+
+
+
 	int index = 0;
-	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
+	sf::RenderWindow window(sf::VideoMode(width, height), "notes");
 	sf::Clock timer;
 
 	while (window.isOpen()) {
@@ -131,14 +162,16 @@ int myMain()
 				window.close();
 			}
 		}
-		window.clear();
+		window.clear(sf::Color::White);
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
 			index++;
 		}
 
 
-
+		window.draw(lines);
+		window.draw(lines2);
+		window.draw(lines3);
 		window.display();
 	}
 
