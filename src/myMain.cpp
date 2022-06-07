@@ -33,14 +33,14 @@ int myMain()
 	std::cout << test_json << std::endl;
 	
 	std::vector<mesure> all_mesures = get_mesures(partition);
-	std::vector<Notes> all_notes;
+	std::vector<Tunes> all_notes;
 	for (const mesure& mes : all_mesures) {
 		
-		std::vector<Notes> mesure_notes = get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
+		std::vector<Tunes> mesure_notes = get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
 		all_notes.insert(all_notes.end(), mesure_notes.begin(), mesure_notes.end());
 
 	}
-	for (const Notes& one_note : all_notes) {
+	for (const Tunes& one_note : all_notes) {
 		std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
 	}
 

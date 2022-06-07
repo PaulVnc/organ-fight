@@ -12,16 +12,16 @@ std::vector<mesure> get_mesures(nlohmann::json json) {
 	return all_mesures;
 }
 
-std::vector<Notes> get_notes(nlohmann::json json, int id_mesure, float chiffrage, float tempo) {
-	std::vector<Notes> all_notes;
+std::vector<Tunes> get_notes(nlohmann::json json, int id_mesure, float chiffrage, float tempo) {
+	std::vector<Tunes> all_notes;
 	if (json.is_array()) {
 		for (int i = 0; i < json.size(); i++) {
-			Notes note = Notes(json[i]["tune"], json[i]["beat"], id_mesure, chiffrage, tempo);
+			Tunes note = Tunes(json[i]["tune"], json[i]["beat"], id_mesure, chiffrage, tempo);
 			all_notes.push_back(note);
 		}
 	}
 	else {
-		Notes note = Notes(json["tune"], json["beat"], id_mesure, chiffrage, tempo);
+		Tunes note = Tunes(json["tune"], json["beat"], id_mesure, chiffrage, tempo);
 		all_notes.push_back(note);
 	}
 	return all_notes;

@@ -8,4 +8,4 @@ struct mesure {
 };
 
 std::vector<mesure> get_mesures(nlohmann::json json);
-std::vector<Notes> get_notes(nlohmann::json json, int id_mesure, float chiffrage, float tempo);
+std::vector<Tunes> get_notes(nlohmann::json json, int id_mesure, float chiffrage, float tempo);
