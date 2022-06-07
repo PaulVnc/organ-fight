@@ -168,6 +168,7 @@ int myMain()
 				window.close();
 			}
 		}
+
 		window.clear(sf::Color::White);
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
