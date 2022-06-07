@@ -1,0 +1,208 @@
+{
+  "label": "Can you feel the love tonight",
+  "chiffrage": 4.0,
+  "tempo": 70.0,
+  "mesures": [
+    {
+      "id": 1,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "E"
+        },
+        {
+          "beat": 3,
+          "tune": "D"
+        },
+        {
+          "beat": 4,
+          "tune": "G"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "notes": [
+
+        {
+          "beat": 1,
+          "tune": "F"
+        },
+        {
+          "beat": 3,
+          "tune": "F"
+        },
+        {
+          "beat": 3.5,
+          "tune": "E"
+        },
+        {
+          "beat": 4,
+          "tune": "C"
+        },
+        {
+          "beat": 4.5,
+          "tune": "G"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 3,
+          "tune": "G"
+        },
+        {
+          "beat": 3.5,
+          "tune": "C"
+        },
+        {
+          "beat": 4,
+          "tune": "G"
+        },
+        {
+          "beat": 4.5,
+          "tune": "E"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "D"
+        },
+        {
+          "beat": 2,
+          "tune": "E"
+        },
+        {
+          "beat": 3,
+          "tune": "G"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "D"
+        },
+        {
+          "beat": 3,
+          "tune": "C"
+        },
+        {
+          "beat": 3.5,
+          "tune": "G"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "D"
+        },
+        {
+          "beat": 3,
+          "tune": "C"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "C"
+        },
+        {
+          "beat": 2.75,
+          "tune": "D"
+        },
+        {
+          "beat": 3,
+          "tune": "C"
+        },
+        {
+          "beat": 3.5,
+          "tune": "G"
+        },
+        {
+          "beat": 4,
+          "tune": "E"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "F"
+        },
+        {
+          "beat": 1.5,
+          "tune": "E"
+        },
+        {
+          "beat": 2,
+          "tune": "D"
+        },
+        {
+          "beat": 2.5,
+          "tune": "E"
+        },
+        {
+          "beat": 3,
+          "tune": "D"
+        }
+      ]
+    }
+  ]
+}
