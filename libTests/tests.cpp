@@ -7,6 +7,7 @@
 #include <SFML/Audio/SoundBuffer.hpp>
 #include "boss.h"
 #include "note.h"
+#include "movingObject.h"
 
 #define RATIO 30.0f
 #define SCREEN_W 800
