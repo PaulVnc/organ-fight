@@ -29,6 +29,16 @@ int myMain()
  {
 	  // Inserer ici le code a appeler par myMain()
 	
+	sf::Texture texture;
+	if (!texture.loadFromFile("resources/sprite_note_26x26.jpg"))
+	{
+		std::cout << "texture load failed" << std::endl;
+		return -1;
+
+	}
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+
 
 	std::ifstream i("resources/LionKing.json");
 	nlohmann::json partition;
@@ -173,7 +183,7 @@ int myMain()
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
 			index++;
-			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO);
+			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO, texture);
 			notes.push_back(new_note);
 		}
 
@@ -185,6 +195,7 @@ int myMain()
 		window.draw(lines);
 		window.draw(lines2);
 		window.draw(lines3);
+		window.draw(sprite);
 		window.display();
 	}
 
