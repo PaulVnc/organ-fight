@@ -1,12 +1,12 @@
 #include "myMain.h"
-#include "note.h"
+#include "Tunes.h"
 #include "queue.h"
 #include "jsonfunction.h"
 #include "box2d/box2d.h"
 #include <stdio.h>
 #include <iostream>
 #include "nlohmann/json.hpp"
-#include "Movingobject.h"
+#include "Boss.h"
 #include <string>
 #include <fstream>
 #include <memory>

@@ -1,20 +1,20 @@
-#include "note.h"
+#include "Tunes.h"
 
 Tunes::Tunes(float time, std::string tune) :
 	time(time),
 	tune(tune) {}
 
 Tunes::Tunes(std::string tune, float beat, int id_mesure, float chiffrage, float tempo) :
-	tune(tune) 
+	tune(tune)
 {
-	time = (60/tempo)*(chiffrage*(id_mesure - 1) + beat);
+	time = (60 / tempo) * (chiffrage * (id_mesure - 1) + beat);
 }
 
 
-std::string Tunes::get_tune() const{
+std::string Tunes::get_tune() const {
 	return tune;
 }
 
-float Tunes::get_time() const{
+float Tunes::get_time() const {
 	return time;
 }

@@ -1,9 +1,9 @@
-#include "Movingobject.h"
+#include "Boss.h"
 
 void Boss::setRectangle(float width, float height) {
-	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(width, height));
-	rectangle->setPosition(position);
-	rectangle->setOrigin(width / 2, height / 2);
+    sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(width, height));
+    rectangle->setPosition(position);
+    rectangle->setOrigin(width / 2, height / 2);
     rectangle->setFillColor(sf::Color::Blue);
     shape = rectangle;
 }
