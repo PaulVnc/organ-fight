@@ -1,5 +1,5 @@
 #pragma once
-#include "note.h"
+#include "tunes.h"
 #include "SFML/Graphics.hpp"
 
 class Queue

@@ -1,13 +1,18 @@
 #pragma once
 #include <string>
+#include <SFML/Graphics.hpp>
+#include "movingObject.h"
 
-class Tunes {
+class Note:public MovingObject {
 private:
-	float time;
-	std::string tune;
+	std::string sound; // the sound sample played
+	int whole_note_frac; //duration of the note, as a fraction of a whole note
+	int nuance; // from 1 to 6, 6 being ff, 5:f,4:mf,3:mp,2:p,1:pp, 0 -> the note disappear
+	sf::RectangleShape shape;
 public:
-	Tunes(float time, std::string tune);
-	Tunes(std::string tune, float beat, int id_mesure, float chiffrage, float tempo);
-	std::string get_tune() const;
-	float get_time() const;
+	Note(float x_pos, std::string note, int wnf, b2World* world, float RATIO, int nuance = 6);
+	void changeNuance(int newNuance);
+	void decreaseNuance();
+	void draw(sf::RenderTarget* window,const float RATIO);
+	~Note();
 };

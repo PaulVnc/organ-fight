@@ -1,6 +1,6 @@
 #pragma once
 #include "nlohmann/json.hpp"
-#include "note.h"
+#include "tunes.h"
 
 struct mesure {
 	int id;
