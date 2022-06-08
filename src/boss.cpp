@@ -1,29 +1,24 @@
+#include "box2d/box2d.h"
+#include <stdio.h>
+#include <assert.h>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 #include "boss.h"
 
-void Boss::setRectangle(float width, float height) {
-	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(width, height));
-	rectangle->setPosition(position);
-	rectangle->setOrigin(width / 2, height / 2);
-    rectangle->setFillColor(sf::Color::Blue);
-    shape = rectangle;
+int time_count=0;
+
+void Boss::changeDirection() {
+	body.SetLinearVelocity(-1 * body.GetLinearVelocity());
 }
 
-void Boss::createBody(b2World& world) {
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(position.x / worldScale, position.y / worldScale);
-    body = world.CreateBody(&bodyDef);
-
-    b2PolygonShape polygonShape;
-    polygonShape.SetAsBox(shape->getLocalBounds().width / 2 / worldScale, shape->getLocalBounds().height / 2 / worldScale);
-
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &polygonShape;
-    //fixtureDef.density = dynamic;
-    fixtureDef.friction = 0.3f;
-    body->CreateFixture(&fixtureDef);
-}
-
-void Boss::update() {
-    shape->setPosition(body->GetPosition().x * worldScale, body->GetPosition().y * worldScale);
+int Boss::bossMain() {
+	time_count = (time_count + rand() % 2) % 5000;
+	if (time_count == 0) {
+		printf("boss changing direction\n");
+		changeDirection();
+	}
+	
+	return 0;
 }

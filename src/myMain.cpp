@@ -152,10 +152,7 @@ int myMain()
 
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
-	
-	Boss boss(100, 100);
-	boss.setRectangle(100, 100);
-	boss.createBody(world);
+
 
 
 	int index = 0;
@@ -188,7 +185,6 @@ int myMain()
 		window.draw(lines);
 		window.draw(lines2);
 		window.draw(lines3);
-		window.draw(boss.getShape());
 		window.display();
 	}
 

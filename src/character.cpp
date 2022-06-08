@@ -10,10 +10,10 @@ void Character::SetHealth(int value) {
 	health = value;
 }
 
-void Character::DeltaHealth(int amount) {
+void Character::AddHealth(int amount) {
 	health += amount;
 }
 
-void Character::ChangeSprite(sf::Sprite new_sprite) {
-	sprite = new_sprite;
+void Character::ChangeSprite(sf::Texture new_sprite) {
+	sprite.swap(new_sprite);
 }
