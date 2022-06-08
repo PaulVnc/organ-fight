@@ -1,5 +1,5 @@
 #include "myMain.h"
-#include "Tunes.h"
+#include "tunes.h"
 #include "queue.h"
 #include "jsonfunction.h"
 #include "box2d/box2d.h"
@@ -13,6 +13,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include "note.h"
+#include "Movingobject.h"
+#include "boss.h"
+
+#define RATIO 30.0f
 
 using namespace nlohmann;
 
@@ -21,7 +26,7 @@ int const width = 1200;
 
 
 int myMain()
-{
+ {
 	  // Inserer ici le code a appeler par myMain()
 	
 
@@ -143,6 +148,7 @@ int myMain()
 	lines3[1].position = sf::Vector2f(width, 600);
 	lines3[1].color = sf::Color::Red;
 
+	std::vector<Note> notes;
 
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
@@ -150,8 +156,6 @@ int myMain()
 	Boss boss(100, 100);
 	boss.setRectangle(100, 100);
 	boss.createBody(world);
-
-
 
 
 	int index = 0;
@@ -172,9 +176,15 @@ int myMain()
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
 			index++;
+			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO);
+			notes.push_back(new_note);
 		}
 
+		world.Step(1.0f / 60.0f, 6, 2);
 
+		for (Note n : notes) {
+			n.draw(&window,RATIO);
+		}
 		window.draw(lines);
 		window.draw(lines2);
 		window.draw(lines3);
