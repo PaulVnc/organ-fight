@@ -3,6 +3,15 @@
 #include <iostream>
 #include <stdio.h>
 
+/*
+CETTE CLASSE N'EST PAS UTILISEE
+
+Cette classe a été créée dans l'optique d'implémenter le game programming pattern Event Queue, mais après réflexion c'était sortir un bazooka pour tuer une mouche
+dans le contexte de ce projet, on a donc changer de méthode
+
+(mais supprimer les fichiers ça affole le Cmake alors j'ai peur et je laisse les fichiers mais ils servent plus à rien)
+*/
+
 
 void Queue::init() {
 	head_ = 0;
