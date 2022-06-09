@@ -19,6 +19,7 @@
 
 #define RATIO 30.0f
 
+
 using namespace nlohmann;
 
 int const height = 800;
@@ -27,8 +28,9 @@ int const width = 1200;
 
 int myMain()
  {
-	  // Inserer ici le code a appeler par myMain()
-	
+	  
+	/*On commence par charger les textures utilisées par les sprites et a assignée la texture du background au sprite du background*/
+#pragma region Textures
 	sf::Texture texture_notes;
 	if (!texture_notes.loadFromFile("resources/trans_note.png"))
 	{
@@ -45,30 +47,48 @@ int myMain()
 
 	}
 
-	sf::Sprite sprite;
-	sprite.setTexture(texture_background);
+	sf::Sprite sprite_background;
+	sprite_background.setTexture(texture_background);
+
+#pragma endregion Textures
 
 
+	/*Parsing du Json de la partition*/
+#pragma region parsing_json
+
+	/*On charge le Json depuis les ressources*/
 	std::ifstream i("resources/LionKing.json");
 	nlohmann::json partition;
 	i >> partition;
 
 
-	std::string test_json = partition.dump(3);
-	std::cout << test_json << std::endl;
+	/*Print de debug*/
+	//std::string test_json = partition.dump(3);
+	//std::cout << test_json << std::endl;
+
 	
+	/*On récupère toutes les mesures du json avec les fonctions de parsing (cf. jsonfunction.h)*/
 	std::vector<mesure> all_mesures = get_mesures(partition);
-	std::vector<Tunes> all_notes;
+
+	/*Pour chacune des mesures on récupère toutes les tunes et on les stocke dans l'ordre dans le vecteur all_tunes*/
+	std::vector<Tunes> all_tunes;
 	for (const mesure& mes : all_mesures) {
 		
 		std::vector<Tunes> mesure_notes = get_tunes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
-		all_notes.insert(all_notes.end(), mesure_notes.begin(), mesure_notes.end());
+		all_tunes.insert(all_tunes.end(), mesure_notes.begin(), mesure_notes.end());
 
 	}
-	for (const Tunes& one_note : all_notes) {
-		std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
-	}
 
+
+	/*Print de debug*/
+	//for (const Tunes& one_note : all_notes) {
+		//std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
+	//}
+#pragma endregion parsing_json
+
+
+	/*On charge les 7 fichiers audios correspondant aux 7 notes de la gamme de Do Majeur*/
+#pragma region sound_buffer
 	sf::SoundBuffer buffer;
 	sf::Sound soundA;
 	if (!buffer.loadFromFile("resources/A.wav")) {
@@ -133,6 +153,8 @@ int myMain()
 	soundG.setBuffer(bufferG);
 	soundG.setVolume(20);
 
+
+	/*On créée une map associant le nom de la note au son de la note, ça permettra de récupérer le bon son pour chaque tunes*/
 	std::map<std::string, sf::Sound> sounds_map;
 	sounds_map["A"] = soundA;
 	sounds_map["B"] = soundB;
@@ -142,7 +164,7 @@ int myMain()
 	sounds_map["F"] = soundF;
 	sounds_map["G"] = soundG;
 
-
+#pragma endregion sound_buffer
 
 
 
@@ -168,9 +190,13 @@ int myMain()
 			}
 		}
 		window.clear(sf::Color::White);
-		window.draw(sprite);
-		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
-			sounds_map[all_notes[index].get_tune()].play();
+		window.draw(sprite_background);
+
+		/*A chaque tour de boucle on vérifie si le temps écoulé depuis le lancement du jeu est supérieur au temps auquel la prochaine note doit être jouée, si c'est le cas,
+		on joue le son du Tunes et on crée l'objet note correspondant, qui va tomber sur l'écran et interagir avec les joueurs.
+		On fait donc spawn les notes suivant le rythme de la partition*/
+		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
+			sounds_map[all_tunes[index].get_tune()].play();
 			index++;
 			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
@@ -186,44 +212,3 @@ int myMain()
 
     return 0;
 }
-
-/*Note note = Note("D", 2.0, 1, 4.0, 100.0);
-	Note* note_test = &note;
-	std::cout << "La note est: " << note_test->get_tune() << " et est jouée au temps " << std::to_string(note_test->get_time()) << std::endl;
-
-	Note note2 = Note("C", 4.0, 2, 4.0, 100.0);
-	Note* note_test2 = &note2;
-	std::cout << "La note est: " << note_test2->get_tune() << " et est jouée au temps " << std::to_string(note_test2->get_time()) << std::endl;
-
-	Queue queue;
-	queue.init();
-	queue.add_to_queue(note_test);
-	queue.add_to_queue(note_test2);
-
-
-	sf::RectangleShape to_display[2];
-
-
-	sf::RenderWindow window(sf::VideoMode(height, width), "notes");
-	sf::Clock timer;
-
-	while (window.isOpen()) {
-
-
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
-			}
-		}
-		window.clear();
-		queue.update(timer, to_display);
-		for (int i = 0; i < 2; i++) {
-			window.draw(to_display[i]);
-		}
-
-
-
-		window.display();
-	}*/
