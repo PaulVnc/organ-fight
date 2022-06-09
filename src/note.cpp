@@ -19,10 +19,29 @@ void Note::decreaseNuance() {
 	nuance--;
 }
 
+void Note::Update() {
+	if (dead)
+		return;
+	if (GetVelocity() == b2Vec2(0.0f, 0.0f)){
+		dead = true;
+		Die();
+	}
+}
+
+void Note::Die() {
+	GetBody()->DestroyFixture(&(GetBody()->GetFixtureList()[0]));
+	dead = true;
+	return;
+}
+
 void Note::draw(sf::RenderTarget* window,const float RATIO) {
+	if (dead)
+		return;
+	Update();
 	shape.setPosition(RATIO*(GetPosition().x-0.5f), RATIO*(-GetPosition().y-0.5f));
 	shape.setFillColor(sf::Color(0, 0, 0, 255));
 	sprite.setPosition(RATIO * (GetPosition().x - 0.5f), RATIO * (-GetPosition().y - 0.5f));
 	//window->draw(shape);
-	window->draw(sprite);
+	if(!dead)
+		window->draw(sprite);
 }

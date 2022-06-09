@@ -319,7 +319,7 @@ int myMain()
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			sounds_map[all_tunes[index].get_tune()].play();
 			index++;
-			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO, texture_notes);
+			Note new_note(2.0f + (index%2)*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
 		}
 
