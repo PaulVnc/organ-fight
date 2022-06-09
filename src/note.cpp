@@ -18,9 +18,9 @@ void Note::decreaseNuance() {
 void Note::Update() {
 	if (dead)
 		return;
-	if (GetVelocity() == b2Vec2(0.0f, 0.0f)){
-		dead = true;
+	if (GetVelocity().x == 0 && GetPosition().x > 4.0f && GetPosition().x < 24.0f) {
 		Die();
+		dead = true;
 	}
 }
 
@@ -30,14 +30,12 @@ void Note::Die() {
 	return;
 }
 
-void Note::draw(sf::RenderTarget* window,const float RATIO) {
+void Note::draw_note(sf::RenderTarget* window,const float RATIO) {
 	if (dead)
 		return;
 	Update();
-	shape.setPosition(RATIO*(GetPosition().x-0.5f), RATIO*(-GetPosition().y-0.5f));
-	shape.setFillColor(sf::Color(0, 0, 0, 255));
 	sprite.setPosition(RATIO * (GetPosition().x - 0.5f), RATIO * (-GetPosition().y - 0.5f));
 	//window->draw(shape);
-	if(!dead)
-		window->draw(sprite);
+	if (!dead)
+		Draw(window, RATIO);
 }

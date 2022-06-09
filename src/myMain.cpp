@@ -204,7 +204,7 @@ int myMain()
 	bool p1CanShoot = true;
 	bool p1CanGoDown = true;
 	bool p1CanGoUp = true;
-	Character player2(31.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
+	Character player2(33.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
 	bool p2CanShoot = true;
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
@@ -326,7 +326,7 @@ int myMain()
 		world.Step(1.0f / 60.0f, 6, 2);
 
 		for (Note n : notes) {
-			n.Draw(&window,RATIO);
+			n.draw_note(&window,RATIO);
 		}
 		player1.Draw(&window, RATIO);
 		player2.Draw(&window, RATIO);
