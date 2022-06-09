@@ -9,11 +9,11 @@
 
 int time_count=0;
 
-Boss::Boss(int initial_health,b2World* world)
+Boss::Boss(int initial_health,b2World* world, sf::Texture& texture)
 	:MovingObject(b2Vec2(15.0f, -20.0f), b2Vec2(0, 0), 2.0f, 2.0f, world)
 	, health(initial_health)
 {
-
+	sprite.setTexture(texture);
 }
 
 void Boss::changeDirection() {
@@ -54,5 +54,7 @@ void Boss::Draw(sf::RenderTarget* window, float RATIO) {
 	sf::RectangleShape bossShape(sf::Vector2f(RATIO*2.0f, RATIO*2.0f));
 	bossShape.setPosition(sf::Vector2f(RATIO * (GetPosition().x -1.0f), RATIO* (-GetPosition().y-1.0f)));
 	bossShape.setFillColor(sf::Color(255, 0, 0, 255));
+	sprite.setPosition(sf::Vector2f(RATIO * (GetPosition().x - 1.0f), RATIO * (-GetPosition().y - 1.0f)));
 	window->draw(bossShape);
+	window->draw(sprite);
 }
