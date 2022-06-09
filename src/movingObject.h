@@ -9,11 +9,13 @@ private:
 	b2Body* body;
 	float h;
 	float w;
+	sf::Sprite sprite;
 public:
-	MovingObject(b2Vec2 position, b2Vec2 initial_velocity, float width, float height, b2World* world);
+	MovingObject(b2Vec2 position, b2Vec2 initial_velocity, float width, float height, b2World* world, sf::Texture& texture);
 	void SetVelocity(b2Vec2 vel);
 	void SetPosition(b2Vec2 pos);
 	b2Body* GetBody();
 	b2Vec2 GetPosition();
 	b2Vec2 GetVelocity();
+	void Draw(sf::RenderTarget* window, float RATIO);
 };

@@ -326,7 +326,7 @@ int myMain()
 		world.Step(1.0f / 60.0f, 6, 2);
 
 		for (Note n : notes) {
-			n.draw(&window,RATIO);
+			n.Draw(&window,RATIO);
 		}
 		player1.Draw(&window, RATIO);
 		player2.Draw(&window, RATIO);
