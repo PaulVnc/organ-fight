@@ -9,16 +9,43 @@
 
 int time_count=0;
 
+Boss::Boss(int initial_health,b2World* world)
+	:MovingObject(b2Vec2(15.0f, -20.0f), b2Vec2(0, 0), 2.0f, 2.0f, world)
+	, health(initial_health)
+{
+
+}
+
 void Boss::changeDirection() {
-	body.SetLinearVelocity(-1 * body.GetLinearVelocity());
+	int pattern = rand() % 4;
+	switch (pattern) {
+	case 0:
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+		break;
+	case 1:
+		SetVelocity(b2Vec2(0.0f, 0.05f));
+		break;
+	case 2:
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+		break;
+	case 3:
+		SetVelocity(b2Vec2(0.0f, -0.05f));
+		break;
+	}
 }
 
 int Boss::bossMain() {
-	time_count = (time_count + rand() % 2) % 5000;
+	time_count = (time_count + rand() % 2) % 2000;
 	if (time_count == 0) {
 		printf("boss changing direction\n");
 		changeDirection();
 	}
-	
 	return 0;
+}
+
+void Boss::Draw(sf::RenderTarget* window, float RATIO) {
+	sf::RectangleShape bossShape(sf::Vector2f(RATIO*2.0f, RATIO*2.0f));
+	bossShape.setPosition(sf::Vector2f(RATIO * (GetPosition().x -1.0f), RATIO* (-GetPosition().y-1.0f)));
+	bossShape.setFillColor(sf::Color(255, 0, 0, 255));
+	window->draw(bossShape);
 }

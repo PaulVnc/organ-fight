@@ -12,4 +12,6 @@ public:
 	void SetHealth(int value);
 	void AddHealth(int amount);
 	void ChangeSprite(sf::Texture new_sprite);
+	void Draw(sf::RenderTarget* window, float RATIO);
+	void RedirectNearbyObject(b2Body* projectile);
 };
