@@ -204,12 +204,10 @@ int myMain()
 	bool p1CanShoot = true;
 	bool p1CanGoDown = true;
 	bool p1CanGoUp = true;
-	Character player2(31.0f, b2Vec2(-1, 0), 100, playerSprite, &world);
 	Character player2(31.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
 	bool p2CanShoot = true;
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
-	Boss boss(500, &world);
 
 	Boss boss(500, &world, texture_boss);
 
