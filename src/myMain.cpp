@@ -29,15 +29,24 @@ int myMain()
  {
 	  // Inserer ici le code a appeler par myMain()
 	
-	sf::Texture texture;
-	if (!texture.loadFromFile("resources/sprite_note_26x26.jpg"))
+	sf::Texture texture_notes;
+	if (!texture_notes.loadFromFile("resources/trans_note.png"))
 	{
 		std::cout << "texture load failed" << std::endl;
 		return -1;
 
 	}
+
+	sf::Texture texture_background;
+	if (!texture_background.loadFromFile("resources/background.jpg", sf::IntRect(0,0,width,height)))
+	{
+		std::cout << "texture load failed" << std::endl;
+		return -1;
+
+	}
+
 	sf::Sprite sprite;
-	sprite.setTexture(texture);
+	sprite.setTexture(texture_background);
 
 
 	std::ifstream i("resources/LionKing.json");
@@ -136,27 +145,6 @@ int myMain()
 
 
 
-	
-	sf::VertexArray lines(sf::Lines, 2);
-
-	lines[0].position = sf::Vector2f(0, 200);
-	lines[0].color = sf::Color::Red;
-	lines[1].position = sf::Vector2f(width, 200);
-	lines[1].color = sf::Color::Red;
-
-	sf::VertexArray lines2(sf::Lines, 2);
-
-	lines2[0].position = sf::Vector2f(0, 400);
-	lines2[0].color = sf::Color::Red;
-	lines2[1].position = sf::Vector2f(width, 400);
-	lines2[1].color = sf::Color::Red;
-
-	sf::VertexArray lines3(sf::Lines, 2);
-
-	lines3[0].position = sf::Vector2f(0, 600);
-	lines3[0].color = sf::Color::Red;
-	lines3[1].position = sf::Vector2f(width, 600);
-	lines3[1].color = sf::Color::Red;
 
 	std::vector<Note> notes;
 
@@ -180,10 +168,11 @@ int myMain()
 			}
 		}
 		window.clear(sf::Color::White);
+		window.draw(sprite);
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
 			index++;
-			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO, texture);
+			Note new_note(2.0f + (index%2)*30.0f , "C", 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
 		}
 
@@ -192,10 +181,6 @@ int myMain()
 		for (Note n : notes) {
 			n.draw(&window,RATIO);
 		}
-		window.draw(lines);
-		window.draw(lines2);
-		window.draw(lines3);
-		window.draw(sprite);
 		window.display();
 	}
 

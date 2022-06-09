@@ -24,6 +24,6 @@ void Note::draw(sf::RenderTarget* window,const float RATIO) {
 	shape.setPosition(RATIO*(GetPosition().x-0.5f), RATIO*(-GetPosition().y-0.5f));
 	shape.setFillColor(sf::Color(0, 0, 0, 255));
 	sprite.setPosition(RATIO * (GetPosition().x - 0.5f), RATIO * (-GetPosition().y - 0.5f));
-	window->draw(shape);
+	//window->draw(shape);
 	window->draw(sprite);
 }
