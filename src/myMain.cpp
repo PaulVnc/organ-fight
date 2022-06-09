@@ -52,7 +52,7 @@ int myMain()
 	std::vector<Tunes> all_notes;
 	for (const mesure& mes : all_mesures) {
 		
-		std::vector<Tunes> mesure_notes = get_notes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
+		std::vector<Tunes> mesure_notes = get_tunes(mes.json, mes.id, partition["chiffrage"], partition["tempo"]);
 		all_notes.insert(all_notes.end(), mesure_notes.begin(), mesure_notes.end());
 
 	}
