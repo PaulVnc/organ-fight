@@ -20,6 +20,16 @@ void Character::ChangeSprite(sf::Texture new_sprite) {
 	sprite.swap(new_sprite);
 }
 
+void Character::Update() {
+	if (GetVelocity().y < 0.0f && GetPosition().y < -24.0f) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+	}
+
+	if (GetVelocity().y > 0.0f && GetPosition().y > -18.0f) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+	}
+}
+
 void Character::Draw(sf::RenderTarget* window, float RATIO) {
 	sf::RectangleShape rectangle(sf::Vector2f(RATIO*2*1.0f, RATIO*2*1.0f));
 	rectangle.setPosition(RATIO * (GetPosition().x - 0.5f), RATIO * (-GetPosition().y - 0.5f));

@@ -23,22 +23,29 @@ void Boss::changeDirection() {
 		SetVelocity(b2Vec2(0.0f, 0.0f));
 		break;
 	case 1:
-		SetVelocity(b2Vec2(0.0f, 0.05f));
+		SetVelocity(b2Vec2(0.0f, 0.1f));
 		break;
 	case 2:
 		SetVelocity(b2Vec2(0.0f, 0.0f));
 		break;
 	case 3:
-		SetVelocity(b2Vec2(0.0f, -0.05f));
+		SetVelocity(b2Vec2(0.0f, -0.1f));
 		break;
 	}
 }
 
 int Boss::bossMain() {
-	time_count = (time_count + rand() % 2) % 2000;
+	time_count = (time_count + rand() % 2) % 1000;
 	if (time_count == 0) {
-		printf("boss changing direction\n");
 		changeDirection();
+	}
+	SetVelocity(b2Vec2(0.0f, GetVelocity().y));
+	if (GetVelocity().y < 0.0f && GetPosition().y < -24.0f ) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+	}
+
+	if (GetVelocity().y > 0.0f && GetPosition().y > -18.0f) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
 	}
 	return 0;
 }

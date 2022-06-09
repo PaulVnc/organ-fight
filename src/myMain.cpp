@@ -17,7 +17,6 @@
 #include "Movingobject.h"
 #include "boss.h"
 #include "character.h"
-#include "keyHandler.cpp"
 
 #define RATIO 30.0f
 
@@ -159,9 +158,12 @@ int myMain()
 
 	Character player1(1.0f, b2Vec2(1, 0), 100, playerSprite, &world);
 	bool p1CanShoot = true;
+	bool p1CanGoDown = true;
+	bool p1CanGoUp = true;
 	Character player2(31.0f, b2Vec2(-1, 0), 100, playerSprite, &world);
 	bool p2CanShoot = true;
-
+	bool p2CanGoDown = true;
+	bool p2CanGoUp = true;
 	Boss boss(500, &world);
 
 
@@ -191,10 +193,17 @@ int myMain()
 					}
 					break;
 				case sf::Keyboard::Key::Z:
-					player1.SetVelocity(b2Vec2(0.0f, 0.5f));
+					if (p1CanGoUp) {
+						p1CanGoUp = false;
+						player1.SetVelocity(b2Vec2(0.0f, 0.5f));
+					}
 					break;
 				case sf::Keyboard::Key::W:
-					player1.SetVelocity(b2Vec2(0.0f, -0.5f));
+					if (p1CanGoDown) {
+						p1CanGoDown = false;
+						player1.SetVelocity(b2Vec2(0.0f, -0.5f));
+						printf("down\n");
+					}
 					break;
 				case sf::Keyboard::Key::H:
 					if (!p2CanShoot)
@@ -206,12 +215,16 @@ int myMain()
 					}
 					break;
 				case sf::Keyboard::Key::U:
-					if (player2.GetPosition().y < -18.0f)
+					if (player2.GetPosition().y < -18.0f) {
 						player2.SetVelocity(b2Vec2(0.0f, 0.5f));
+						p2CanGoUp = false;
+					}
 					break;
 				case sf::Keyboard::Key::N:
-					if (player2.GetPosition().y > -24.0f)
-						player2.SetVelocity(b2Vec2(0.0f,-0.5f));
+					if (p2CanGoDown) {
+						p2CanGoDown = false;
+						player2.SetVelocity(b2Vec2(0.0f, -0.5f));
+					}
 					break;
 				default:
 					break;
@@ -225,17 +238,21 @@ int myMain()
 					break;
 				case sf::Keyboard::Key::Z:
 					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
+					p1CanGoUp = true;
 					break;
 				case sf::Keyboard::Key::W:
+					p1CanGoDown = true;
 					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
 					break;
 				case sf::Keyboard::Key::H:
 					p2CanShoot = true;
 					break;
 				case sf::Keyboard::Key::U:
+					p2CanGoUp = true;
 					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
 					break;
 				case sf::Keyboard::Key::N:
+					p2CanGoDown = true;
 					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
 					break;
 				default:
@@ -245,6 +262,8 @@ int myMain()
 		}
 
 		boss.bossMain();
+		player1.Update();
+		player2.Update();
 
 		window.clear(sf::Color::White);
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
