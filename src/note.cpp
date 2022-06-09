@@ -6,7 +6,7 @@ Note::Note(float x_pos, std::string note, int wnf, b2World* world, float RATIO, 
 	,whole_note_frac(wnf)
 	,nuance(nuance)
 	,shape(sf::RectangleShape(sf::Vector2f(RATIO*2*0.5f, RATIO*2*0.5f)))
-{}
+{
 	sprite.setTexture(texture);
 	
 }

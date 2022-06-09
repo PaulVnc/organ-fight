@@ -49,6 +49,30 @@ int myMain()
 
 	}
 
+	sf::Texture texture_player1;
+	if (!texture_player1.loadFromFile("resources/player1.JPG"))
+	{
+		std::cout << "texture load failed" << std::endl;
+		return -1;
+
+	}
+
+	sf::Texture texture_player2;
+	if (!texture_player2.loadFromFile("resources/player2.JPG"))
+	{
+		std::cout << "texture load failed" << std::endl;
+		return -1;
+
+	}
+
+	sf::Texture texture_boss;
+	if (!texture_boss.loadFromFile("resources/Boss.JPG"))
+	{
+		std::cout << "texture load failed" << std::endl;
+		return -1;
+
+	}
+
 	sf::Sprite sprite_background;
 	sprite_background.setTexture(texture_background);
 
@@ -177,12 +201,12 @@ int myMain()
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 
-	Character player1(1.0f, b2Vec2(1, 0), 100, playerSprite, &world);
+	Character player1(1.0f, b2Vec2(1, 0), 100, texture_player1, &world);
 	bool p1CanShoot = true;
-	Character player2(31.0f, b2Vec2(-1, 0), 100, playerSprite, &world);
+	Character player2(31.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
 	bool p2CanShoot = true;
 
-	Boss boss(500, &world);
+	Boss boss(500, &world, texture_boss);
 
 
 	int index = 0;
@@ -287,9 +311,6 @@ int myMain()
 		player1.Draw(&window, RATIO);
 		player2.Draw(&window, RATIO);
 		boss.Draw(&window, RATIO);
-		window.draw(lines);
-		window.draw(lines2);
-		window.draw(lines3);
 		window.display();
 	}
 
