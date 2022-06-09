@@ -1,0 +1,3 @@
+Reste à implémenter:
+	Le système de victoire/ défaite (les notes doivent descendre les points de vie du boss, et s'il meure avant la fin la partie est gagnée)
+	Des intéractions avec le boss (le mode "reprise", où le boss renvoie les notes qu'il reçoit)
