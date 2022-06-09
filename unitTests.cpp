@@ -5,6 +5,7 @@
 
 /* On va tester les fonctions de parsing du Json avec le json présenté ci-dessous*/
 
+#pragma region json_partition
 const auto partition = R"({
       "label": "test",
       "chiffrage": 4.0,
@@ -33,9 +34,10 @@ const auto partition = R"({
       ]
     }
     )"_json;
+#pragma endregion json_partition
+
 
 /*Dans un premier temps, on teste que le json est bien formé et qu'on peut bien récupérer les infos label, chiffrage et tempo du json*/
-
 TEST(TestReadJson, TestOpening) {
     std::string label = "test";
     float chiffrage = 4.0;
