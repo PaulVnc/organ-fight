@@ -3,11 +3,7 @@
 #include "nlohmann/json.hpp"
 #include "src/jsonfunction.h"
 
-TEST(TestReadJson, TestOpening) {
-    std::string label = "test";
-    float chiffrage = 4.0;
-    float tempo = 100.0;
-    auto partition = R"({
+const auto partition = R"({
       "label": "test",
       "chiffrage": 4.0,
       "tempo": 100.0,
@@ -35,40 +31,18 @@ TEST(TestReadJson, TestOpening) {
       ]
     }
     )"_json;
+
+TEST(TestReadJson, TestOpening) {
+    std::string label = "test";
+    float chiffrage = 4.0;
+    float tempo = 100.0;
+
     EXPECT_EQ(partition["label"], label);
     EXPECT_EQ(partition["chiffrage"], chiffrage);
     EXPECT_EQ(partition["tempo"], tempo);
 }
 
 TEST(TestReadJson, TestReadingMesure) {
-    auto partition = R"({
-      "label": "test",
-      "chiffrage": 4.0,
-      "tempo": 100.0,
-      "mesures": [
-        {
-          "id": 1,
-          "notes": [
-            {
-              "beat": 2,
-              "tune": "A"
-            },
-            {
-              "beat": 3,
-              "tune": "B"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "notes": {
-            "beat": 1,
-            "tune": "C"
-          }
-        }
-      ]
-    }
-    )"_json;
     std::vector<mesure> mesures_json = get_mesures(partition);
     auto notes_mes_1 = R"([
             {
@@ -96,34 +70,6 @@ TEST(TestReadJson, TestReadingMesure) {
 
 
 TEST(TestReadJson, TestReadingTunes) {
-    auto partition = R"({
-      "label": "test",
-      "chiffrage": 4.0,
-      "tempo": 100.0,
-      "mesures": [
-        {
-          "id": 1,
-          "notes": [
-            {
-              "beat": 2,
-              "tune": "A"
-            },
-            {
-              "beat": 3,
-              "tune": "B"
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "notes": {
-            "beat": 1,
-            "tune": "C"
-          }
-        }
-      ]
-    }
-    )"_json;
     std::vector<mesure> mesures_json = get_mesures(partition);
     std::vector<Tunes> tunes_mes1_json = get_notes(mesures_json[0].json, 1, 4.0, 100.0);
     std::vector<Tunes> tunes_mes2_json = get_notes(mesures_json[1].json, 2, 4.0, 100.0);
