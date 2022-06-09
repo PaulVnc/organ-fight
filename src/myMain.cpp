@@ -16,6 +16,8 @@
 #include "note.h"
 #include "Movingobject.h"
 #include "boss.h"
+#include "character.h"
+#include "keyHandler.cpp"
 
 #define RATIO 30.0f
 
@@ -150,9 +152,17 @@ int myMain()
 
 	std::vector<Note> notes;
 
+	sf::Sprite playerSprite;
+
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 
+	Character player1(1.0f, b2Vec2(1, 0), 100, playerSprite, &world);
+	bool p1CanShoot = true;
+	Character player2(31.0f, b2Vec2(-1, 0), 100, playerSprite, &world);
+	bool p2CanShoot = true;
+
+	Boss boss(500, &world);
 
 
 	int index = 0;
@@ -168,7 +178,74 @@ int myMain()
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
+			if (event.type == sf::Event::KeyPressed) {
+				sf::Keyboard::Key k = event.key.code;
+				switch (k) {
+				case sf::Keyboard::Key::S:
+					if (!p1CanShoot)
+						break;
+					p1CanShoot = false;
+					if (player1.GetBody()->GetContactList()) {
+						b2Body* projectile = player1.GetBody()->GetContactList()->contact->GetFixtureB()->GetBody();
+						player1.RedirectNearbyObject(projectile);
+					}
+					break;
+				case sf::Keyboard::Key::Z:
+					player1.SetVelocity(b2Vec2(0.0f, 0.5f));
+					break;
+				case sf::Keyboard::Key::W:
+					player1.SetVelocity(b2Vec2(0.0f, -0.5f));
+					break;
+				case sf::Keyboard::Key::H:
+					if (!p2CanShoot)
+						break;
+					p2CanShoot = false;
+					if (player2.GetBody()->GetContactList()) {
+						b2Body* projectile = player2.GetBody()->GetContactList()->contact->GetFixtureB()->GetBody();
+						player2.RedirectNearbyObject(projectile);
+					}
+					break;
+				case sf::Keyboard::Key::U:
+					if (player2.GetPosition().y < -18.0f)
+						player2.SetVelocity(b2Vec2(0.0f, 0.5f));
+					break;
+				case sf::Keyboard::Key::N:
+					if (player2.GetPosition().y > -24.0f)
+						player2.SetVelocity(b2Vec2(0.0f,-0.5f));
+					break;
+				default:
+					break;
+				}
+			}
+			if (event.type == sf::Event::KeyReleased) {
+				sf::Keyboard::Key k = event.key.code;
+				switch (k) {
+				case sf::Keyboard::Key::S:
+					p1CanShoot = true;
+					break;
+				case sf::Keyboard::Key::Z:
+					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
+					break;
+				case sf::Keyboard::Key::W:
+					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
+					break;
+				case sf::Keyboard::Key::H:
+					p2CanShoot = true;
+					break;
+				case sf::Keyboard::Key::U:
+					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
+					break;
+				case sf::Keyboard::Key::N:
+					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
+					break;
+				default:
+					break;
+				}
+			}
 		}
+
+		boss.bossMain();
+
 		window.clear(sf::Color::White);
 		while (index < all_notes.size() && timer.getElapsedTime().asSeconds() >= all_notes[index].get_time()) {
 			sounds_map[all_notes[index].get_tune()].play();
@@ -182,6 +259,9 @@ int myMain()
 		for (Note n : notes) {
 			n.draw(&window,RATIO);
 		}
+		player1.Draw(&window, RATIO);
+		player2.Draw(&window, RATIO);
+		boss.Draw(&window, RATIO);
 		window.draw(lines);
 		window.draw(lines2);
 		window.draw(lines3);
