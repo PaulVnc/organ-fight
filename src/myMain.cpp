@@ -1,5 +1,5 @@
 #include "myMain.h"
-#include "tunes.h"
+#include "Tunes.h"
 #include "jsonfunction.h"
 #include "box2d/box2d.h"
 #include <stdio.h>
@@ -13,8 +13,7 @@
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
 #include "note.h"
-#include "Movingobject.h"
-#include "boss.h"
+#include "movingObject.h"
 #include "character.h"
 
 #define RATIO 30.0f
@@ -208,7 +207,7 @@ int myMain()
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
 
-	Boss boss(500, &world, texture_boss);
+	Boss boss(500, texture_boss, &world);
 
 
 	int index = 0;
@@ -317,9 +316,9 @@ int myMain()
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			sounds_map[all_tunes[index].get_tune()].play();
-			index++;
 			Note new_note(2.0f + (index%2)*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
+			index++;
 		}
 
 		world.Step(1.0f / 60.0f, 6, 2);
