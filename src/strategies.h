@@ -1,16 +1,16 @@
-
+#include <memory>
 
 class Strategy {
 public:
-	virtual int execute();
+	virtual int execute() = 0;
 	virtual ~Strategy() = default;
 };
 
 class Context {
 private:
-	Strategy* strategy;
+	std::unique_ptr<Strategy> strategy;
 public:
-	void setStrategy(Strategy new_strategy);
+	void setStrategy(std::unique_ptr<Strategy> new_strategy);
 	int executeStrategy();
 };
 

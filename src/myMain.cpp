@@ -15,6 +15,7 @@
 #include "note.h"
 #include "movingObject.h"
 #include "character.h"
+#include "strategies.h"
 
 #define RATIO 30.0f
 
@@ -214,6 +215,10 @@ int myMain()
 	sf::RenderWindow window(sf::VideoMode(width, height), "notes");
 	sf::Clock timer;
 
+	Context context;
+	auto startStrategy = std::make_unique<BasicStrategy>();
+	context.setStrategy(std::move(startStrategy));
+#pragma region boucle_while
 	while (window.isOpen()) {
 
 
@@ -316,7 +321,7 @@ int myMain()
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			sounds_map[all_tunes[index].get_tune()].play();
-			Note new_note(2.0f + (index%2)*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
+			Note new_note(2.0f + (context.executeStrategy())*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
 			index++;
 		}
@@ -334,3 +339,4 @@ int myMain()
 
     return 0;
 }
+#pragma endregion boucle_while
