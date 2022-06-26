@@ -1,3 +1,5 @@
+#pragma once
+
 #include <memory>
 
 class Strategy {
@@ -8,9 +10,9 @@ public:
 
 class Context {
 private:
-	std::unique_ptr<Strategy> strategy;
+	Strategy* strategy;
 public:
-	void setStrategy(std::unique_ptr<Strategy> new_strategy);
+	void setStrategy(Strategy* new_strategy);
 	int executeStrategy();
 };
 

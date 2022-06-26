@@ -39,7 +39,7 @@ void MovingObject::SetVelocity(b2Vec2 vel) {
 	body->SetLinearVelocity(vel);
 }
 
-void MovingObject::Draw(sf::RenderTarget* window, const float RATIO) {
+void MovingObject::Draw(sf::RenderTarget& window, const float RATIO) {
 	sprite.setPosition(RATIO * (GetPosition().x - w/2), RATIO * (-GetPosition().y - h/2));
-	window->draw(sprite);
+	window.draw(sprite);
 }

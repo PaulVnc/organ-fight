@@ -82,6 +82,7 @@ int myMain()
 
 	/*On charge le Json depuis les ressources*/
 	std::ifstream i("resources/LionKing.json");
+	//std::ifstream i("resources/partition_test.json");
 	nlohmann::json partition;
 	i >> partition;
 
@@ -217,7 +218,14 @@ int myMain()
 
 	Context context;
 	auto startStrategy = std::make_unique<BasicStrategy>();
-	context.setStrategy(std::move(startStrategy));
+	auto J1losingstrategy = std::make_unique<J1losingStrategy>();
+	auto J2losingstrategy = std::make_unique<J2losingStrategy>();
+	std::vector<std::unique_ptr<Strategy>> strategies;
+	strategies.push_back(std::move(startStrategy));
+	strategies.push_back(std::move(J1losingstrategy));
+	strategies.push_back(std::move(J2losingstrategy));
+	context.setStrategy(strategies[0].get());
+
 #pragma region boucle_while
 	while (window.isOpen()) {
 
@@ -328,12 +336,16 @@ int myMain()
 
 		world.Step(1.0f / 60.0f, 6, 2);
 
-		for (Note n : notes) {
-			n.draw_note(&window,RATIO);
+		for (int i = 0; i < notes.size(); i++) {
+			notes[i].draw_note(window, RATIO, context, strategies);
+			if (notes[i].getDead()) {
+				notes.erase(notes.begin()+i);
+			}
+			//std::cout << n.GetPosition().y << std::endl;
 		}
-		player1.Draw(&window, RATIO);
-		player2.Draw(&window, RATIO);
-		boss.Draw(&window, RATIO);
+		player1.Draw(window, RATIO);
+		player2.Draw(window, RATIO);
+		boss.Draw(window, RATIO);
 		window.display();
 	}
 

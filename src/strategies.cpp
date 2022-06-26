@@ -2,9 +2,9 @@
 #include <stdlib.h> 
 
 
-void Context::setStrategy(std::unique_ptr<Strategy> new_strategy)
+void Context::setStrategy(Strategy* new_strategy)
 {
-	strategy = std::move(new_strategy);
+	strategy = new_strategy;
 }
 
 int Context::executeStrategy() {

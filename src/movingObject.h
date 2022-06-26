@@ -17,5 +17,5 @@ public:
 	b2Body* GetBody();
 	b2Vec2 GetPosition();
 	b2Vec2 GetVelocity();
-	void Draw(sf::RenderTarget* window, float RATIO);
+	void Draw(sf::RenderTarget& window, float RATIO);
 };

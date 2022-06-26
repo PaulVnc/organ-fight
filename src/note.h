@@ -3,6 +3,7 @@
 #include "box2d/box2d.h"
 #include <SFML/Graphics.hpp>
 #include "movingObject.h"
+#include "strategies.h"
 
 class Note :public MovingObject {
 private:
@@ -15,7 +16,8 @@ public:
 	Note(float x_pos, std::string note, int wnf, b2World* world, float RATIO, sf::Texture& texture, int nuance = 6);
 	void changeNuance(int newNuance);
 	void decreaseNuance();
-	void draw_note(sf::RenderTarget* window, const float RATIO);
+	void draw_note(sf::RenderTarget& window, const float RATIO, Context& context, std::vector<std::unique_ptr<Strategy>>& strategies);
 	void Update();
 	void Die();
+	bool getDead();
 };
