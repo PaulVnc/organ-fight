@@ -73,6 +73,7 @@ int myMain()
 
 	sf::Sprite sprite_background;
 	sprite_background.setTexture(texture_background);
+	sprite_background.setColor(sf::Color(255, 255, 255, 220));
 
 #pragma endregion Textures
 
@@ -195,7 +196,6 @@ int myMain()
 
 	std::vector<Note> notes;
 
-	sf::Sprite playerSprite;
 
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
@@ -209,7 +209,7 @@ int myMain()
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
 
-	Boss boss(500, texture_boss, &world);
+	Boss boss(500, texture_boss, world);
 
 
 	int index = 0;
@@ -329,7 +329,7 @@ int myMain()
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			sounds_map[all_tunes[index].get_tune()].play();
-			Note new_note(4.0f + (context.executeStrategy())*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
+			Note new_note(4.0f + (context.executeStrategy())*30.0f , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes);
 			notes.push_back(new_note);
 			index++;
 		}

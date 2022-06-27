@@ -13,7 +13,7 @@ private:
 	bool dead = false;
 	sf::Sprite sprite;
 public:
-	Note(float x_pos, std::string note, int wnf, b2World* world, float RATIO, sf::Texture& texture, int nuance = 6);
+	Note(float x_pos, std::string note, int wnf, b2World& world, float RATIO, sf::Texture& texture, int nuance = 6);
 	void changeNuance(int newNuance);
 	void decreaseNuance();
 	void draw_note(sf::RenderTarget& window, const float RATIO, Context& context, std::vector<std::unique_ptr<Strategy>>& strategies);

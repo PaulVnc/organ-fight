@@ -9,7 +9,7 @@ private:
 public:
 	//void setReflectMode(bool state);
 	//void hit(int amount);
-	Boss(int x_pos, sf::Texture& texture, b2World* world);
+	Boss(int x_pos, sf::Texture& texture, b2World& world);
 	void changeDirection();
 	int bossMain();
 };

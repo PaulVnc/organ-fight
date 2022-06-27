@@ -9,7 +9,7 @@
 
 int time_count = 0;
 
-Boss::Boss(int x_pos, sf::Texture& texture, b2World* world)
+Boss::Boss(int x_pos, sf::Texture& texture, b2World& world)
 	:MovingObject(b2Vec2(x_pos, -20.0f), b2Vec2(0, 0), 2.0f, 1.0f, world, texture)
 {
 	GetBody()->GetFixtureList()[0].SetSensor(true);
