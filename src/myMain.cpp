@@ -200,11 +200,11 @@ int myMain()
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 
-	Character player1(1.0f, b2Vec2(1, 0), 100, texture_player1, &world);
+	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, &world);
 	bool p1CanShoot = true;
 	bool p1CanGoDown = true;
 	bool p1CanGoUp = true;
-	Character player2(33.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
+	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
 	bool p2CanShoot = true;
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
@@ -329,7 +329,7 @@ int myMain()
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			sounds_map[all_tunes[index].get_tune()].play();
-			Note new_note(2.0f + (context.executeStrategy())*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
+			Note new_note(4.0f + (context.executeStrategy())*30.0f , all_tunes[index].get_tune(), 4, &world, RATIO, texture_notes);
 			notes.push_back(new_note);
 			index++;
 		}
