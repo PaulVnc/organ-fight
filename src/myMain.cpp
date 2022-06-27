@@ -200,11 +200,11 @@ int myMain()
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 
-	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, &world);
+	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, world);
 	bool p1CanShoot = true;
 	bool p1CanGoDown = true;
 	bool p1CanGoUp = true;
-	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, &world);
+	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, world);
 	bool p2CanShoot = true;
 	bool p2CanGoDown = true;
 	bool p2CanGoUp = true;
