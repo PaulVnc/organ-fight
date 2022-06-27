@@ -29,3 +29,11 @@ void Character::Update() {
 void Character::RedirectNearbyObject(b2Body* projectile) {
 	projectile->SetLinearVelocity(facing);
 }
+
+bool Character::GetCanShoot() {
+	return canShoot;
+}
+
+void Character::SetCanShoot(bool value) {
+	canShoot = value;
+}

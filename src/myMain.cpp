@@ -15,6 +15,7 @@
 #include "note.h"
 #include "movingObject.h"
 #include "character.h"
+#include "keyHandler.cpp"
 
 #define RATIO 30.0f
 
@@ -224,87 +225,13 @@ int myMain()
 				window.close();
 			}
 			if (event.type == sf::Event::KeyPressed) {
-				sf::Keyboard::Key k = event.key.code;
-				switch (k) {
-				case sf::Keyboard::Key::S:
-					if (!p1CanShoot)
-						break;
-					p1CanShoot = false;
-					if (player1.GetBody()->GetContactList()) {
-						b2Body* projectile = player1.GetBody()->GetContactList()->contact->GetFixtureB()->GetBody();
-						player1.RedirectNearbyObject(projectile);
-					}
-					break;
-				case sf::Keyboard::Key::Z:
-					if (p1CanGoUp) {
-						p1CanGoUp = false;
-						player1.SetVelocity(b2Vec2(0.0f, 0.5f));
-					}
-					break;
-				case sf::Keyboard::Key::W:
-					if (p1CanGoDown) {
-						p1CanGoDown = false;
-						player1.SetVelocity(b2Vec2(0.0f, -0.5f));
-						printf("down\n");
-					}
-					break;
-				case sf::Keyboard::Key::H:
-					if (!p2CanShoot)
-						break;
-					p2CanShoot = false;
-					if (player2.GetBody()->GetContactList()) {
-						b2Body* projectile = player2.GetBody()->GetContactList()->contact->GetFixtureB()->GetBody();
-						player2.RedirectNearbyObject(projectile);
-					}
-					break;
-				case sf::Keyboard::Key::U:
-					if (player2.GetPosition().y < -18.0f) {
-						player2.SetVelocity(b2Vec2(0.0f, 0.5f));
-						p2CanGoUp = false;
-					}
-					break;
-				case sf::Keyboard::Key::N:
-					if (p2CanGoDown) {
-						p2CanGoDown = false;
-						player2.SetVelocity(b2Vec2(0.0f, -0.5f));
-					}
-					break;
-				default:
-					break;
-				}
+				handleKeyPress(event.key.code, &player1, &player2);
 			}
 			if (event.type == sf::Event::KeyReleased) {
-				sf::Keyboard::Key k = event.key.code;
-				switch (k) {
-				case sf::Keyboard::Key::S:
-					p1CanShoot = true;
-					break;
-				case sf::Keyboard::Key::Z:
-					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
-					p1CanGoUp = true;
-					break;
-				case sf::Keyboard::Key::W:
-					p1CanGoDown = true;
-					player1.SetVelocity(b2Vec2(0.0f, 0.0f));
-					break;
-				case sf::Keyboard::Key::H:
-					p2CanShoot = true;
-					break;
-				case sf::Keyboard::Key::U:
-					p2CanGoUp = true;
-					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
-					break;
-				case sf::Keyboard::Key::N:
-					p2CanGoDown = true;
-					player2.SetVelocity(b2Vec2(0.0f, 0.0f));
-					break;
-				default:
-					break;
-				}
+				handleKeyRelease(event.key.code, &player1, &player2);
 			}
 		}
 
-		boss.bossMain();
 		player1.Update();
 		player2.Update();
 
