@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 class MovingObject {
-private:
+protected:
 	b2BodyDef bodyDef;
 	b2Body* body;
 	float h;
@@ -17,5 +17,5 @@ public:
 	b2Body* GetBody();
 	b2Vec2 GetPosition();
 	b2Vec2 GetVelocity();
-	void Draw(sf::RenderTarget* window, float RATIO);
+	virtual void Draw(sf::RenderTarget* window, float RATIO);
 };

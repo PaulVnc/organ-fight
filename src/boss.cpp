@@ -9,22 +9,58 @@
 
 int time_count = 0;
 
-Boss::Boss(int x_pos, sf::Texture& texture, b2World* world)
-	:MovingObject(b2Vec2(x_pos, -20.0f), b2Vec2(0, 0), 2.0f, 1.0f, world, texture)
+Boss::Boss(int health, sf::Texture& texture, b2World* world)
+	:MovingObject(b2Vec2(17.0f, -20.0f), b2Vec2(0, 0), 2.0f, 2.0f, world, texture)
+	,health(health)
 {
-	GetBody()->GetFixtureList()[0].SetSensor(true);
 }
 
 void Boss::changeDirection() {
-	GetBody()->SetLinearVelocity(-1 * GetBody()->GetLinearVelocity());
+	int pattern = rand() % 4;
+	switch (pattern) {
+	case 0:
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+		break;
+	case 1:
+		SetVelocity(b2Vec2(0.0f, 0.1f));
+		break;
+	case 2:
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+		break;
+	case 3:
+		SetVelocity(b2Vec2(0.0f, -0.1f));
+		break;
+	}
 }
 
-int Boss::bossMain() {
-	time_count = (time_count + rand() % 2) % 5000;
+void Boss::bossMain() {
+	if (dead)
+		return;
+	time_count = (time_count + rand() %2) % 5000;
 	if (time_count == 0) {
-		printf("boss changing direction\n");
 		changeDirection();
 	}
+	SetVelocity(b2Vec2(0.0f, GetVelocity().y));
+	if (GetVelocity().y < 0.0f && GetPosition().y < -24.0f) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+	}
 
-	return 0;
+	if (GetVelocity().y > 0.0f && GetPosition().y > -18.0f) {
+		SetVelocity(b2Vec2(0.0f, 0.0f));
+	}
+	if (health <= 0) {
+		dead = true;
+	}
+
+	return;
+}
+
+void Boss::Draw(sf::RenderTarget* window,const float RATIO) {
+	if (dead)
+		return;
+	bossMain();
+	//sprite.setPosition(RATIO * (GetPosition().x - w), RATIO * (-GetPosition().y - 0.5f));
+	//window->draw(shape);
+	if (!dead)
+		MovingObject::Draw(window, RATIO);
 }
