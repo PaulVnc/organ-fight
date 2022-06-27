@@ -48,7 +48,7 @@ int myMain()
 	}
 
 	sf::Texture texture_player1;
-	if (!texture_player1.loadFromFile("resources/player1.JPG"))
+	if (!texture_player1.loadFromFile("resources/player1_transparent.png"))
 	{
 		std::cout << "texture load failed" << std::endl;
 		return -1;
@@ -56,7 +56,7 @@ int myMain()
 	}
 
 	sf::Texture texture_player2;
-	if (!texture_player2.loadFromFile("resources/player2.JPG"))
+	if (!texture_player2.loadFromFile("resources/player2_transparent.png"))
 	{
 		std::cout << "texture load failed" << std::endl;
 		return -1;
