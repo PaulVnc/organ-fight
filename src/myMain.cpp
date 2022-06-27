@@ -64,7 +64,7 @@ int myMain()
 	}
 
 	sf::Texture texture_boss;
-	if (!texture_boss.loadFromFile("resources/Boss.JPG"))
+	if (!texture_boss.loadFromFile("resources/Boss_Transparent.png"))
 	{
 		std::cout << "texture load failed" << std::endl;
 		return -1;
