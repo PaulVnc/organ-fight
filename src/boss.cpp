@@ -9,7 +9,7 @@
 
 int time_count = 0;
 
-Boss::Boss(int health, sf::Texture& texture, b2World* world)
+Boss::Boss(int health, sf::Texture& texture, b2World& world)
 	:MovingObject(b2Vec2(17.0f, -20.0f), b2Vec2(0, 0), 2.0f, 2.0f, world, texture)
 	,health(health)
 {
@@ -55,7 +55,7 @@ void Boss::bossMain() {
 	return;
 }
 
-void Boss::Draw(sf::RenderTarget* window,const float RATIO) {
+void Boss::Draw(sf::RenderTarget& window,const float RATIO) {
 	if (dead)
 		return;
 	bossMain();

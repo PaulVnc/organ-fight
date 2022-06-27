@@ -12,6 +12,8 @@ if(WIN32)
   # SonarLint support for CMake requires the following flag to be set on.
   #(see https://community.sonarsource.com/t/sonarlint-for-visual-studio-v4-38-support-cmake-projects/50127)
   set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
+  file(GLOB_RECURSE DYNAMIC_LIBS CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/lib_openal32/${ARCH}/*.dll)
+  file(COPY ${DYNAMIC_LIBS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif()
 
 FetchContent_Declare(

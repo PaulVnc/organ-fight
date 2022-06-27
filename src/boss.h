@@ -10,8 +10,8 @@ private:
 public:
 	//void setReflectMode(bool state);
 	//void hit(int amount);
-	Boss(int x_pos, sf::Texture& texture, b2World* world);
+	Boss(int x_pos, sf::Texture& texture, b2World& world);
 	void changeDirection();
 	void bossMain();
-	void Draw(sf::RenderTarget* window, const float RATIO) override;
+	void Draw(sf::RenderTarget& window, const float RATIO) override;
 };

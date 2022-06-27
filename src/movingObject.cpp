@@ -1,6 +1,6 @@
 #include "MovingObject.h"
 
-MovingObject::MovingObject(b2Vec2 position,b2Vec2 initial_velocity,float width, float height, b2World* world, sf::Texture& texture)
+MovingObject::MovingObject(b2Vec2 position,b2Vec2 initial_velocity,float width, float height, b2World& world, sf::Texture& texture)
 	:w(width),h(height)
 {
 	bodyDef.type = b2_dynamicBody;
@@ -12,7 +12,7 @@ MovingObject::MovingObject(b2Vec2 position,b2Vec2 initial_velocity,float width, 
 	fixtureDef.shape = &noteBox;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 1.0f;
-	body = world->CreateBody(&bodyDef);
+	body = world.CreateBody(&bodyDef);
 	body->CreateFixture(&fixtureDef);
 	body->SetLinearVelocity(initial_velocity);
 	sprite.setTexture(texture);
@@ -39,7 +39,7 @@ void MovingObject::SetVelocity(b2Vec2 vel) {
 	body->SetLinearVelocity(vel);
 }
 
-void MovingObject::Draw(sf::RenderTarget* window, const float RATIO) {
+void MovingObject::Draw(sf::RenderTarget& window, const float RATIO) {
 	sprite.setPosition(RATIO * (GetPosition().x - w/2), RATIO * (-GetPosition().y - h/2));
-	window->draw(sprite);
+	window.draw(sprite);
 }

@@ -1,6 +1,6 @@
 #include "character.h"
 
-Character::Character(float x_pos, b2Vec2 facing, int initial_health, sf::Texture& texture, b2World* world)
+Character::Character(float x_pos, b2Vec2 facing, int initial_health, sf::Texture& texture, b2World& world)
 	:MovingObject(b2Vec2(x_pos, -20.0f), b2Vec2(0, 0), 2.0f, 2.0f, world, texture)
 	, health(initial_health)
 	, facing(facing)
