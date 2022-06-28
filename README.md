@@ -21,7 +21,7 @@ Le jeu organ-fight s'inspire de la nouvelle de Jules Vernes [Monsieur Ré-dièze e
 
 Dans ce jeu multijoueur local, vous incarnez Monsieur Ré Dièze et Madame Mi Bémol qui ont décidé de surmonter leur peur du maitre organiste Effarane ! Vous profitez donc des réparations de l'orgue du village pour vous caher et envoyer des notes de musique sur l'effrayant maître Effarane. Et qui sais, peut être que si vous en envoyez suffisamment, il s'énervera et quittera le village !
 
-![Screenshot](https://drive.google.com/file/d/1P4kFpPlUyQ2R9IXX32n5WHBjK8zxOUP9/view?usp=sharing)
+![Screenshot](resources/Organ-fight.JPG)
 
 ## Les Commandes
 
