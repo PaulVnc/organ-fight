@@ -41,8 +41,9 @@ SoundManager::SoundManager() {
 	player.setVolume(10);
 }
 
-void SoundManager::Play(std::string note) {
+void SoundManager::Play(std::string note,int nuance) {
 	player.setBuffer(sounds_map[note]);
+	player.setVolume(nuance);
 	player.play();
 }
 

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "movingObject.h"
 #include "strategies.h"
+#include "soundManager.h"
 
 class Note :public MovingObject {
 private:
@@ -12,8 +13,10 @@ private:
 	int nuance; // from 1 to 6, 6 being ff, 5:f,4:mf,3:mp,2:p,1:pp, 0 -> the note disappear
 	bool dead = false;
 	sf::Sprite sprite;
+	SoundManager* sound_manager;
+	float oldVelocity = 0.0f;
 public:
-	Note(float x_pos, std::string note, int wnf, b2World& world, float RATIO, sf::Texture& texture, int nuance = 6);
+	Note(float x_pos, std::string note, int wnf, b2World& world, float RATIO, sf::Texture& texture, SoundManager* soundManager, int nuance = 18);
 	void changeNuance(int newNuance);
 	void decreaseNuance();
 	void draw_note(sf::RenderTarget& window, const float RATIO, Context& context, std::vector<std::unique_ptr<Strategy>>& strategies);

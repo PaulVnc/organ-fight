@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <iostream>
 
-Note::Note(float x_pos, std::string note, int wnf, b2World& world, float RATIO, sf::Texture& texture, int nuance)
+Note::Note(float x_pos, std::string note, int wnf, b2World& world, float RATIO, sf::Texture& texture, SoundManager* soundManager, int nuance)
 	:MovingObject(b2Vec2(x_pos,0.0f),b2Vec2(0.0f,-0.5f), 0.5f,0.5f,world, texture)
 	,sound(note)
 	,whole_note_frac(wnf)
 	,nuance(nuance)
+	,sound_manager(soundManager)
 {}
 
 void Note::changeNuance(int new_nuance) {
@@ -14,15 +15,34 @@ void Note::changeNuance(int new_nuance) {
 }
 
 void Note::decreaseNuance() {
-	nuance--;
+	nuance-=3;
+	if (nuance <= 0) {
+		Die();
+	}
 }
 
 void Note::Update() {
 	if (dead)
 		return;
-	if (GetPosition().y < -30.0f) {
+	float pos_x = GetPosition().x;
+	float pos_y = GetPosition().y;
+	if (pos_y < -30.0f) {
 		Die();
 		dead = true;
+	}
+	if (6 < pos_x && pos_x < 32 && GetBody()->GetContactList()) {
+		Die();
+		dead = true;
+	}
+	if (GetVelocity().x == 0 && oldVelocity == 1) {
+		oldVelocity = 0;
+		sound_manager->Play(sound, nuance);
+		decreaseNuance();
+	}
+	if (abs(GetVelocity().x) == 1 && oldVelocity == 0) {
+		oldVelocity = 1;
+		sound_manager->Play(sound, nuance);
+		decreaseNuance();
 	}
 }
 

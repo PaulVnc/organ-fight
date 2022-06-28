@@ -21,7 +21,7 @@ public:
 class SoundManager {
 public:
 	SoundManager();
-	void Play(std::string note);
+	void Play(std::string note,int nuance);
 	SoundContext GetSoundContext();
 private:
 	SoundContext s_context;
