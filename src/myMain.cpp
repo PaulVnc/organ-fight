@@ -261,14 +261,15 @@ int myMain()
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
 			//sounds_map[all_tunes[index].get_tune()].play();
-			soundManager.Play(all_tunes[index].get_tune());
-			Note new_note(4.0f + (context.executeStrategy())*RATIO , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes);
+			//soundManager.Play(all_tunes[index].get_tune());
+			Note new_note(4.0f + (context.executeStrategy())*RATIO , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes,&soundManager);
 			notes.push_back(new_note);
 			index++;
 		}
 
 		world.Step(1.0f / 60.0f, 6, 2);
 
+		boss.Draw(window, RATIO);
 		for (int i = 0; i < notes.size(); i++) {
 			notes[i].draw_note(window, RATIO, context, strategies);
 			if (notes[i].getDead()) {
@@ -278,7 +279,6 @@ int myMain()
 		}
 		player1.Draw(window, RATIO);
 		player2.Draw(window, RATIO);
-		boss.Draw(window, RATIO);
 		window.display();
 	}
 

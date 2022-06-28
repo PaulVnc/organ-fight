@@ -36,7 +36,7 @@ void Boss::changeDirection() {
 void Boss::bossMain() {
 	if (dead)
 		return;
-	time_count = (time_count + rand() %2) % 5000;
+	time_count = (time_count + rand() %2) % 2000;
 	if (time_count == 0) {
 		changeDirection();
 	}
@@ -49,6 +49,7 @@ void Boss::bossMain() {
 		SetVelocity(b2Vec2(0.0f, 0.0f));
 	}
 	if (GetBody()->GetContactList()) {
+		printf("Aiyeuh\n");
 		health -= 20;
 	}
 	if (health <= 0) {
