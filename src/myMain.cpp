@@ -17,6 +17,7 @@
 #include "character.h"
 #include "keyHandler.cpp"
 #include "strategies.h"
+#include "soundManager.h"
 
 #define RATIO 30.0f
 
@@ -115,7 +116,9 @@ int myMain()
 
 
 	/*On charge les 7 fichiers audios correspondant aux 7 notes de la gamme de Do Majeur*/
+	
 #pragma region sound_buffer
+	/*
 	sf::SoundBuffer buffer;
 	sf::Sound soundA;
 	if (!buffer.loadFromFile("resources/A.wav")) {
@@ -180,8 +183,9 @@ int myMain()
 	soundG.setBuffer(bufferG);
 	soundG.setVolume(20);
 
-
-	/*On créée une map associant le nom de la note au son de la note, ça permettra de récupérer le bon son pour chaque tunes*/
+	*/
+	/*On créée une map associant le nom de la note au son de la note, ça permettra de récupérer le bon son pour chaque tunes* /
+	/*
 	std::map<std::string, sf::Sound> sounds_map;
 	sounds_map["A"] = soundA;
 	sounds_map["B"] = soundB;
@@ -190,7 +194,8 @@ int myMain()
 	sounds_map["E"] = soundE;
 	sounds_map["F"] = soundF;
 	sounds_map["G"] = soundG;
-
+	*/
+	SoundManager soundManager;
 #pragma endregion sound_buffer
 
 
@@ -255,7 +260,8 @@ int myMain()
 		on joue le son du Tunes et on crée l'objet note correspondant, qui va tomber sur l'écran et interagir avec les joueurs.
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
-			sounds_map[all_tunes[index].get_tune()].play();
+			//sounds_map[all_tunes[index].get_tune()].play();
+			soundManager.Play(all_tunes[index].get_tune());
 			Note new_note(4.0f + (context.executeStrategy())*RATIO , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes);
 			notes.push_back(new_note);
 			index++;
