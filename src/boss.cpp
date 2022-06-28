@@ -48,8 +48,12 @@ void Boss::bossMain() {
 	if (GetVelocity().y > 0.0f && GetPosition().y > -18.0f) {
 		SetVelocity(b2Vec2(0.0f, 0.0f));
 	}
+	if (GetBody()->GetContactList()) {
+		health -= 20;
+	}
 	if (health <= 0) {
 		dead = true;
+		GetBody()->DestroyFixture(&(GetBody()->GetFixtureList()[0]));
 	}
 
 	return;
