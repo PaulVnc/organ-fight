@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 class MovingObject {
-private:
+protected:
 	b2BodyDef bodyDef;
 	b2Body* body;
 	float h;
