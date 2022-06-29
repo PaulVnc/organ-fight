@@ -203,6 +203,122 @@
           "tune": "D"
         }
       ]
+    },
+    {
+      "id": 9,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "D"
+        },
+        {
+          "beat": 3,
+          "tune": "C"
+        },
+        {
+          "beat": 3.5,
+          "tune": "G"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "D"
+        },
+        {
+          "beat": 3,
+          "tune": "C"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "A"
+        },
+        {
+          "beat": 1.5,
+          "tune": "B"
+        },
+        {
+          "beat": 2,
+          "tune": "C"
+        },
+        {
+          "beat": 2.5,
+          "tune": "G"
+        },
+        {
+          "beat": 3,
+          "tune": "G"
+        },
+        {
+          "beat": 3.5,
+          "tune": "E"
+        },
+        {
+          "beat": 4,
+          "tune": "C"
+        },
+        {
+          "beat": 4.5,
+          "tune": "A"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "notes": [
+        {
+          "beat": 1,
+          "tune": "F"
+        },
+        {
+          "beat": 1.5,
+          "tune": "E"
+        },
+        {
+          "beat": 2,
+          "tune": "D"
+        },
+        {
+          "beat": 2.5,
+          "tune": "E"
+        },
+        {
+          "beat": 3,
+          "tune": "D"
+        }
+      ]
     }
   ]
 }

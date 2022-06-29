@@ -151,7 +151,7 @@ int myMain()
 	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, world);
 	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, world);
 
-	Boss boss(10, texture_boss, world);
+	Boss boss(500, texture_boss, world);
 
 	int index = 0;
 	sf::RenderWindow window(sf::VideoMode(width, height), "notes");
@@ -248,9 +248,7 @@ int myMain()
 
 		}
 
-		}
-
-		
+	}
 
     return 0;
 }
