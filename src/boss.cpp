@@ -49,7 +49,6 @@ void Boss::bossMain() {
 		SetVelocity(b2Vec2(0.0f, 0.0f));
 	}
 	if (GetBody()->GetContactList()) {
-		printf("Aiyeuh\n");
 		health -= 20;
 	}
 	if (health <= 0) {
