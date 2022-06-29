@@ -119,27 +119,23 @@ int myMain()
 	
 #pragma region sound_buffer
 	SoundManager soundManager;
+	/*auto playTwiceSoundStrategy = std::make_unique<PlayTwice>();
+	auto playUntilNextStrategy = std::make_unique<PlayUntilNext>();
+	std::vector<std::unique_ptr<SoundStrategy>> soundStrategies;
+	soundStrategies.push_back(std::move(playTwiceSoundStrategy));
+	soundStrategies.push_back(std::move(playUntilNextStrategy));
+	soundManager.GetSoundContext()->SetSoundStrategy(soundStrategies[0].get());*/
 #pragma endregion sound_buffer
-
-
-
+	printf("kekw\n");
 	std::vector<Note> notes;
-
 
 	b2Vec2 gravity(0.0f, 0.0f);
 	b2World world(gravity);
 
 	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, world);
-	bool p1CanShoot = true;
-	bool p1CanGoDown = true;
-	bool p1CanGoUp = true;
 	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, world);
-	bool p2CanShoot = true;
-	bool p2CanGoDown = true;
-	bool p2CanGoUp = true;
 
 	Boss boss(500, texture_boss, world);
-
 
 	int index = 0;
 	sf::RenderWindow window(sf::VideoMode(width, height), "notes");

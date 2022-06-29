@@ -57,12 +57,10 @@ void Note::draw_note(sf::RenderTarget& window,const float RATIO, Context& contex
 	if (dead) {
 		if (GetPosition().x < 10) {
 			context.setStrategy(strategies[1].get());
-			std::cout << "change to strategie 1" << std::endl;
 		}
 		else
 		{
 			context.setStrategy(strategies[2].get());
-			std::cout << "change to strategie 2" << std::endl;
 		}
 		return;
 	}
