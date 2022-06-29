@@ -1,5 +1,7 @@
 #include "soundManager.h"
+#include <SFML/System/Time.hpp>
 #include <SFML/System/Clock.hpp>
+#include <thread>
 
 SoundManager::SoundManager() {
 	sf::SoundBuffer bufferA;
@@ -42,6 +44,12 @@ SoundManager::SoundManager() {
 	player.setVolume(10);
 }
 
+void PlayTwice(sf::Sound* player) {
+	sf::Clock tmp;
+	while (tmp.getElapsedTime().asMilliseconds() < 400) {}
+	player->play();
+}
+
 void SoundManager::Play(std::string note, int nuance) {
 	player.setBuffer(sounds_map[note]);
 	player.setVolume(nuance);
@@ -53,18 +61,10 @@ void SoundManager::Play(std::string note, int nuance) {
 	else if (playMode == 1) {
 		player.stop();
 		player.play();
-		sf::Clock tmp_clock;
-		while(tmp_clock.getElapsedTime().asSeconds() < 1){
-}
-		printf("play twice!\n");
-
-		player.play();
+		std::thread twice(&PlayTwice, &player); //On passe par un thread pour ne pas bloquer le programme
+		twice.detach();
 	}
-	else if (playMode == 2) {
-		player.setLoop(true);
-		player.play();
-	}
-	playMode = (playMode + 1) % 3;
+	playMode = (playMode + 1) % 2;
 	//s_context.executeSoundStrategy(player);
 }
 

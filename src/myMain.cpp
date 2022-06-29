@@ -113,20 +113,10 @@ int myMain()
 		//std::cout << "Note: \n tune:" << one_note.get_tune() << "\n time:" << one_note.get_time() << std::endl;
 	//}
 #pragma endregion parsing_json
-
-
-	/*On charge les 7 fichiers audios correspondant aux 7 notes de la gamme de Do Majeur*/
 	
 #pragma region sound_buffer
-	SoundManager soundManager;
-	/*auto playTwiceSoundStrategy = std::make_unique<PlayTwice>();
-	auto playUntilNextStrategy = std::make_unique<PlayUntilNext>();
-	std::vector<std::unique_ptr<SoundStrategy>> soundStrategies;
-	soundStrategies.push_back(std::move(playTwiceSoundStrategy));
-	soundStrategies.push_back(std::move(playUntilNextStrategy));
-	soundManager.GetSoundContext()->SetSoundStrategy(soundStrategies[0].get());*/
+	SoundManager soundManager; //On crée le soundManager, qui va garder les buffers audio pour chaque son
 #pragma endregion sound_buffer
-	printf("kekw\n");
 	std::vector<Note> notes;
 
 	b2Vec2 gravity(0.0f, 0.0f);
@@ -179,8 +169,7 @@ int myMain()
 		on joue le son du Tunes et on crée l'objet note correspondant, qui va tomber sur l'écran et interagir avec les joueurs.
 		On fait donc spawn les notes suivant le rythme de la partition*/
 		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
-			//sounds_map[all_tunes[index].get_tune()].play();
-			//soundManager.Play(all_tunes[index].get_tune());
+			
 			Note new_note(4.0f + (context.executeStrategy())*RATIO , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes,&soundManager);
 			notes.push_back(new_note);
 			index++;
@@ -194,7 +183,6 @@ int myMain()
 			if (notes[i].getDead()) {
 				notes.erase(notes.begin()+i);
 			}
-			//std::cout << n.GetPosition().y << std::endl;
 		}
 		player1.Draw(window, RATIO);
 		player2.Draw(window, RATIO);
