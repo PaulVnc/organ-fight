@@ -43,3 +43,7 @@ void MovingObject::Draw(sf::RenderTarget& window, const float RATIO) {
 	sprite.setPosition(RATIO * (GetPosition().x - w/2), RATIO * (-GetPosition().y - h/2));
 	window.draw(sprite);
 }
+
+sf::Sprite MovingObject::getSprite() const {
+	return sprite;
+}
