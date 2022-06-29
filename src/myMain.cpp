@@ -126,6 +126,22 @@ int myMain()
 	soundStrategies.push_back(std::move(playUntilNextStrategy));
 	soundManager.GetSoundContext()->SetSoundStrategy(soundStrategies[0].get());*/
 #pragma endregion sound_buffer
+
+	sf::Font font;
+	if (!font.loadFromFile("resources/ARIAL.TTF"))
+	{
+		printf("ERROR");
+	}
+
+	sf::Text text_sucess;
+	text_sucess.setFont(font);
+	text_sucess.setString("Félicitations ! Vous avez réussi à chasser l'effrayant maître Effarane");
+	text_sucess.setFillColor(sf::Color::Black);
+	text_sucess.setOutlineColor(sf::Color::White);
+	text_sucess.setOutlineThickness(0.8f);
+	text_sucess.setPosition(sf::Vector2f(150, 150));
+
+
 	printf("kekw\n");
 	std::vector<Note> notes;
 
@@ -135,7 +151,7 @@ int myMain()
 	Character player1(3.5f, b2Vec2(1, 0), 100, texture_player1, world);
 	Character player2(35.0f, b2Vec2(-1, 0), 100, texture_player2, world);
 
-	Boss boss(500, texture_boss, world);
+	Boss boss(10, texture_boss, world);
 
 	int index = 0;
 	sf::RenderWindow window(sf::VideoMode(width, height), "notes");
@@ -155,51 +171,86 @@ int myMain()
 	while (window.isOpen()) {
 
 
-		sf::Event event;
-		while (window.pollEvent(event))
+		if (!boss.getDead()) {
+
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed) {
+					window.close();
+				}
+				if (event.type == sf::Event::KeyPressed) {
+					handleKeyPress(event.key.code, &player1, &player2);
+				}
+				if (event.type == sf::Event::KeyReleased) {
+					handleKeyRelease(event.key.code, &player1, &player2);
+				}
+			}
+
+			player1.Update();
+			player2.Update();
+
+			window.clear(sf::Color::White);
+			window.draw(sprite_background);
+
+			/*A chaque tour de boucle on vérifie si le temps écoulé depuis le lancement du jeu est supérieur au temps auquel la prochaine note doit être jouée, si c'est le cas,
+			on joue le son du Tunes et on crée l'objet note correspondant, qui va tomber sur l'écran et interagir avec les joueurs.
+			On fait donc spawn les notes suivant le rythme de la partition*/
+			while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
+				//sounds_map[all_tunes[index].get_tune()].play();
+				//soundManager.Play(all_tunes[index].get_tune());
+				Note new_note(4.0f + (context.executeStrategy()) * RATIO, all_tunes[index].get_tune(), 4, world, RATIO, texture_notes, &soundManager);
+				notes.push_back(new_note);
+				index++;
+			}
+
+			world.Step(1.0f / 60.0f, 6, 2);
+
+			boss.Draw(window, RATIO);
+			for (int i = 0; i < notes.size(); i++) {
+				notes[i].draw_note(window, RATIO, context, strategies);
+				if (notes[i].getDead()) {
+					notes.erase(notes.begin() + i);
+				}
+				//std::cout << n.GetPosition().y << std::endl;
+			}
+			player1.Draw(window, RATIO);
+			player2.Draw(window, RATIO);
+			window.display();
+		}
+		else
 		{
-			if (event.type == sf::Event::Closed) {
-				window.close();
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed) {
+					window.close();
+				}
 			}
-			if (event.type == sf::Event::KeyPressed) {
-				handleKeyPress(event.key.code, &player1, &player2);
-			}
-			if (event.type == sf::Event::KeyReleased) {
-				handleKeyRelease(event.key.code, &player1, &player2);
-			}
+
+			window.clear(sf::Color::White);
+
+			sprite_background.setColor(sf::Color(255, 255, 255, 180));
+
+			sf::Sprite boss_sprite = boss.getSprite();
+			boss_sprite.setPosition(550, 200);
+
+			sf::Sprite j1 = player1.getSprite();
+			sf::Sprite j2 = player2.getSprite();
+			j1.setPosition(500, 600);
+			j2.setPosition(600, 600);
+			window.draw(sprite_background);
+			window.draw(text_sucess);
+			window.draw(boss_sprite);
+			window.draw(j1);
+			window.draw(j2);
+			window.display();
+
 		}
 
-		player1.Update();
-		player2.Update();
-
-		window.clear(sf::Color::White);
-		window.draw(sprite_background);
-
-		/*A chaque tour de boucle on vérifie si le temps écoulé depuis le lancement du jeu est supérieur au temps auquel la prochaine note doit être jouée, si c'est le cas,
-		on joue le son du Tunes et on crée l'objet note correspondant, qui va tomber sur l'écran et interagir avec les joueurs.
-		On fait donc spawn les notes suivant le rythme de la partition*/
-		while (index < all_tunes.size() && timer.getElapsedTime().asSeconds() >= all_tunes[index].get_time()) {
-			//sounds_map[all_tunes[index].get_tune()].play();
-			//soundManager.Play(all_tunes[index].get_tune());
-			Note new_note(4.0f + (context.executeStrategy())*RATIO , all_tunes[index].get_tune(), 4, world, RATIO, texture_notes,&soundManager);
-			notes.push_back(new_note);
-			index++;
 		}
 
-		world.Step(1.0f / 60.0f, 6, 2);
-
-		boss.Draw(window, RATIO);
-		for (int i = 0; i < notes.size(); i++) {
-			notes[i].draw_note(window, RATIO, context, strategies);
-			if (notes[i].getDead()) {
-				notes.erase(notes.begin()+i);
-			}
-			//std::cout << n.GetPosition().y << std::endl;
-		}
-		player1.Draw(window, RATIO);
-		player2.Draw(window, RATIO);
-		window.display();
-	}
+		
 
     return 0;
 }

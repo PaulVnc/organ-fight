@@ -18,4 +18,5 @@ public:
 	b2Vec2 GetPosition();
 	b2Vec2 GetVelocity();
 	virtual void Draw(sf::RenderTarget& window, float RATIO);
+	sf::Sprite getSprite() const;
 };

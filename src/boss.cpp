@@ -63,8 +63,10 @@ void Boss::Draw(sf::RenderTarget& window,const float RATIO) {
 	if (dead)
 		return;
 	bossMain();
-	//sprite.setPosition(RATIO * (GetPosition().x - w), RATIO * (-GetPosition().y - 0.5f));
-	//window->draw(shape);
 	if (!dead)
 		MovingObject::Draw(window, RATIO);
+}
+
+bool Boss::getDead() {
+	return dead;
 }
