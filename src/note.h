@@ -12,7 +12,6 @@ private:
 	int whole_note_frac; //duration of the note, as a fraction of a whole note
 	int nuance; // from 1 to 6, 6 being ff, 5:f,4:mf,3:mp,2:p,1:pp, 0 -> the note disappear
 	bool dead = false;
-	sf::Sprite sprite;
 	SoundManager* sound_manager;
 	float oldVelocity = 0.0f;
 public:
@@ -23,4 +22,5 @@ public:
 	void Update();
 	void Die();
 	bool getDead();
+	virtual ~Note() = default;
 };

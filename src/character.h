@@ -15,4 +15,5 @@ public:
 	void Update();
 	bool GetCanShoot();
 	void SetCanShoot(bool value);
+	virtual ~Character() = default;
 };

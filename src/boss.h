@@ -15,4 +15,5 @@ public:
 	void bossMain();
 	void Draw(sf::RenderTarget& window, const float RATIO) override;
 	bool getDead();
+	virtual ~Boss() = default;
 };
